@@ -1,0 +1,30 @@
+{
+    "name": "LibVRMTool",
+    "rootNamespace": "",
+    "references": [
+        "VRM",
+        "VRM10"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.vrmc.univrm",
+            "expression": "",
+            "define": "VRM0"
+        },
+        {
+            "name": "com.vrmc.vrm",
+            "expression": "",
+            "define": "VRM1"
+        }
+    ],
+    "noEngineReferences": false
+}
