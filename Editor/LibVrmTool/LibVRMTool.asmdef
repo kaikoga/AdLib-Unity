@@ -1,6 +1,6 @@
 {
     "name": "LibVRMTool",
-    "rootNamespace": "",
+    "rootNamespace": "LibVRMTool",
     "references": [
         "VRM",
         "VRM10"
