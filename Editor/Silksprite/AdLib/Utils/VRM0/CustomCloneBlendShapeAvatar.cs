@@ -28,13 +28,13 @@ namespace Silksprite.AdLib.Utils.VRM0
             }
         }
 
-        [MenuItem("Assets/LibVRMTool/Duplicate VRM0 BlendShapeAvatar", true)]
+        [MenuItem("Assets/Avatar DataObject Library/Duplicate VRM0 BlendShapeAvatar", true)]
         static bool CheckDuplicateBlendShapeAvatar(MenuCommand menuCommand)
         {
             return Selection.activeObject is BlendShapeAvatar;
         }
 
-        [MenuItem("Assets/LibVRMTool/Duplicate VRM0 BlendShapeAvatar", false)]
+        [MenuItem("Assets/Avatar DataObject Library/Duplicate VRM0 BlendShapeAvatar", false)]
         static void DuplicateBlendShapeAvatar(MenuCommand menuCommand)
         {
             if (Selection.activeObject is BlendShapeAvatar blendShapeAvatar)

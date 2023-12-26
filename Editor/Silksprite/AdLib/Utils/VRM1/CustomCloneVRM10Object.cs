@@ -40,13 +40,13 @@ namespace Silksprite.AdLib.Utils.VRM1
             }
         }
 
-        [MenuItem("Assets/LibVRMTool/Duplicate VRM1 Object", true)]
+        [MenuItem("Assets/Avatar DataObject Library/Duplicate VRM1 Object", true)]
         static bool CheckDuplicateVrm10Object(MenuCommand menuCommand)
         {
             return Selection.activeObject is VRM10Object;
         }
 
-        [MenuItem("Assets/LibVRMTool/Duplicate VRM1 Object", false)]
+        [MenuItem("Assets/Avatar DataObject Library/Duplicate VRM1 Object", false)]
         static void DuplicateVrm10Object(MenuCommand menuCommand)
         {
             if (Selection.activeObject is VRM10Object vrm10Object)
