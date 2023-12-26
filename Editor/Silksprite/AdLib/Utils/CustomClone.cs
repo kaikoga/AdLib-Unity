@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace LibVRMTool.Utils
+namespace Silksprite.AdLib.Utils
 {
     public abstract class CustomClone<T, TOut>
         where T : Object

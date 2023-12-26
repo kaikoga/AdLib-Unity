@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using VRM;
 
-namespace LibVRMTool.Utils.VRM0
+namespace Silksprite.AdLib.Utils.VRM0
 {
     public class CustomCloneVRMMetaObject : CustomClone<VRMMetaObject>
     {

@@ -1,10 +1,10 @@
 {
-  "name": "LibVRMTool.UnitTests",
-  "rootNamespace": "LibVRMTool",
+  "name": "AdLib.UnitTests",
+  "rootNamespace": "Silksprite.AdLib",
   "references": [
     "UnityEngine.TestRunner",
     "UnityEditor.TestRunner",
-    "LibVRMTool"
+    "AdLib.Editor"
   ],
   "includePlatforms": [
     "Editor"

@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
-using LibVRMTool.Utils;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace LibVRMTool
+namespace Silksprite.AdLib.Utils
 {
     public class CustomCloneTest
     {

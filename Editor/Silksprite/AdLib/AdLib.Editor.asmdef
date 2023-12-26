@@ -1,6 +1,6 @@
 {
-    "name": "LibVRMTool",
-    "rootNamespace": "LibVRMTool",
+    "name": "AdLib.Editor",
+    "rootNamespace": "Silksprite.AdLib",
     "references": [
         "VRM",
         "VRM10"
