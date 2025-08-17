@@ -3,7 +3,8 @@
     "rootNamespace": "Silksprite.AdLib",
     "references": [
         "VRM",
-        "VRM10"
+        "VRM10",
+        "AdLib"
     ],
     "includePlatforms": [
         "Editor"

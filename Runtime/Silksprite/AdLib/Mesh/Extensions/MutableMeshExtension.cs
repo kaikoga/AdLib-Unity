@@ -7,7 +7,7 @@ namespace Silksprite.AdLib.Mesh.Extensions
 {
     public static class MutableMeshExtension
     {
-        public static void BakeBlendShapes(this MutableMesh<Transform, Material> mesh, Dictionary<string, float> values)
+        public static void BakeBlendShapes(this MutableMesh<Transform, UnityEngine.Material> mesh, Dictionary<string, float> values)
         {
             var blendShapes = mesh.BlendShapes;
             foreach (var kv in values)
@@ -27,19 +27,19 @@ namespace Silksprite.AdLib.Mesh.Extensions
             mesh.ModifyBlendShapes(blendShape => values.ContainsKey(blendShape.BlendShapeName) ? null : blendShape);
         }
 
-        public static void ModifyBlendShapes(this MutableMesh<Transform, Material> mesh, Func<MutableBlendShape, MutableBlendShape> modifier)
+        public static void ModifyBlendShapes(this MutableMesh<Transform, UnityEngine.Material> mesh, Func<MutableBlendShape, MutableBlendShape> modifier)
         {
             var blendShapes = mesh.BlendShapes.ToArray();
             mesh.BlendShapes.Clear();
             mesh.BlendShapes.AddRange(blendShapes.Select(modifier).Where(blendShape => blendShape != null));
         }
 
-        public static MutableMesh<Transform, Material> ToMutableMesh(this SkinnedMeshRenderer source)
+        public static MutableMesh<Transform, UnityEngine.Material> ToMutableMesh(this SkinnedMeshRenderer source)
         {
-            return new MutableMesh<Transform, Material>(source.sharedMesh, MutableBoneMapping.From(source), source.sharedMaterials);
+            return new MutableMesh<Transform, UnityEngine.Material>(source.sharedMesh, MutableBoneMapping.From(source), source.sharedMaterials);
         }
 
-        public static void Add(this MutableMesh<Transform, Material> mutableMesh, SkinnedMeshRenderer skinnedMeshRenderer)
+        public static void Add(this MutableMesh<Transform, UnityEngine.Material> mutableMesh, SkinnedMeshRenderer skinnedMeshRenderer)
         {
             mutableMesh.Add(skinnedMeshRenderer.sharedMesh, MutableBoneMapping.From(skinnedMeshRenderer), skinnedMeshRenderer.sharedMaterials);
         }
