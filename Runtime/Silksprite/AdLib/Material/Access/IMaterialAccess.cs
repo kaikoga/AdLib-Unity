@@ -5,6 +5,9 @@ namespace Silksprite.AdLib.Material.Access
 {
     public interface IMaterialAccess
     {
+        UnityEngine.Material Target { get; }
+        UnityEngine.Material[] Targets { get; }
+
         IMaterialPropertyAccess<float> Float(string name);
 
         IMaterialPropertyAccess<bool> FloatBool(string name);
@@ -12,6 +15,10 @@ namespace Silksprite.AdLib.Material.Access
             where T : Enum;
 
         IMaterialPropertyAccess<Color> Color(string name);
-        IMaterialPropertyAccess<Texture2D> Texture2D(string name);
+        IMaterialTexturePropertyAccess<Texture2D> Texture2D(string name);
+        IMaterialPropertyAccess<Vector4> Vector4(string name);
+
+        IMaterialPropertyAccess<bool> Keyword(string keyword);
+        IMaterialPropertyAccess<int> RenderQueue();
     }
 }

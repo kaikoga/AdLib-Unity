@@ -3,47 +3,78 @@ using UnityEngine;
 
 namespace Silksprite.AdLib.Material.Impl
 {
-    public class MToonMaterialAccess
+    public class MToonMaterialAccess : ShaderMaterialAccessBase
     {
-        readonly IMaterialAccess _access;
+        public MToonMaterialAccess(IMaterialAccess access) : base(access)
+        {
+        }
 
-        public MToonMaterialAccess(IMaterialAccess access) => _access = access;
+        // System Properties 
+        public IMaterialPropertyAccess<float> MToonVersion => MaterialAccess.Float("_MToonVersion");
+        public IMaterialPropertyAccess<float> DebugMode => MaterialAccess.Float("_DebugMode");
 
-        public IMaterialPropertyAccess<MToonEnums.RenderMode> BlendMode => _access.FloatEnum<MToonEnums.RenderMode>("_BlendMode");
-        public IMaterialPropertyAccess<MToonEnums.CullMode> CullMode => _access.FloatEnum<MToonEnums.CullMode>("_CullMode");
+        // Rendering Properties
+        public IMaterialPropertyAccess<MToonEnums.RenderMode> BlendMode => MaterialAccess.FloatEnum<MToonEnums.RenderMode>("_BlendMode");
+        public IMaterialPropertyAccess<MToonEnums.CullMode> CullMode => MaterialAccess.FloatEnum<MToonEnums.CullMode>("_CullMode");
+        public IMaterialPropertyAccess<float> SrcBlend => MaterialAccess.Float("_SrcBlend");
+        public IMaterialPropertyAccess<float> DstBlend => MaterialAccess.Float("_DstBlend");
+        public IMaterialPropertyAccess<float> ZWrite => MaterialAccess.Float("_ZWrite");
+        public IMaterialPropertyAccess<float> AlphaToMask => MaterialAccess.Float("_AlphaToMask");
 
-        public IMaterialPropertyAccess<Texture2D> MainTex => _access.Texture2D("_MainTex");
-        public IMaterialPropertyAccess<Color> Color => _access.Color("_Color");
-        public IMaterialPropertyAccess<Texture2D> ShadeTexture => _access.Texture2D("_ShadeTexture");
-        public IMaterialPropertyAccess<Color> ShadeColor => _access.Color("_ShadeColor");
-        public IMaterialPropertyAccess<float> Cutoff => _access.Float("_Cutoff");
-        public IMaterialPropertyAccess<Texture2D> BumpMap => _access.Texture2D("_BumpMap");
-        public IMaterialPropertyAccess<float> BumpScale => _access.Float("_BumpScale");
+        // Main Properties
+        public IMaterialTexturePropertyAccess<Texture2D> MainTex => MaterialAccess.Texture2D("_MainTex");
+        public IMaterialPropertyAccess<Color> Color => MaterialAccess.Color("_Color");
+        public IMaterialTexturePropertyAccess<Texture2D> ShadeTexture => MaterialAccess.Texture2D("_ShadeTexture");
+        public IMaterialPropertyAccess<Color> ShadeColor => MaterialAccess.Color("_ShadeColor");
+        public IMaterialPropertyAccess<float> Cutoff => MaterialAccess.Float("_Cutoff");
+        public IMaterialPropertyAccess<Texture2D> BumpMap => MaterialAccess.Texture2D("_BumpMap");
+        public IMaterialPropertyAccess<float> BumpScale => MaterialAccess.Float("_BumpScale");
 
-        public IMaterialPropertyAccess<float> ShadeToony => _access.Float("_ShadeToony");
-        public IMaterialPropertyAccess<float> ShadeShift => _access.Float("_ShadeShift");
+        // Shading Properties
+        public IMaterialPropertyAccess<float> ShadeToony => MaterialAccess.Float("_ShadeToony");
+        public IMaterialPropertyAccess<float> ShadeShift => MaterialAccess.Float("_ShadeShift");
+        public IMaterialPropertyAccess<float> LightColorAttenuation => MaterialAccess.Float("_LightColorAttenuation");
+        public IMaterialPropertyAccess<float> IndirectLightIntensity => MaterialAccess.Float("_IndirectLightIntensity");
 
-        public IMaterialPropertyAccess<Texture2D> EmissionMap => _access.Texture2D("_EmissionMap");
-        public IMaterialPropertyAccess<Color> EmissionColor => _access.Color("_EmissionColor");
-        public IMaterialPropertyAccess<Texture2D> SphereAdd => _access.Texture2D("_SphereAdd");
+        // Shadow Properties
+        public IMaterialPropertyAccess<float> ReceiveShadowRate => MaterialAccess.Float("_ReceiveShadowRate");
+        public IMaterialTexturePropertyAccess<Texture2D> ReceiveShadowTexture => MaterialAccess.Texture2D("_ReceiveShadowTexture");
+        public IMaterialPropertyAccess<float> ShadingGradeRate => MaterialAccess.Float("_ShadingGradeRate");
+        public IMaterialTexturePropertyAccess<Texture2D> ShadingGradeTexture => MaterialAccess.Texture2D("_ShadingGradeTexture");
 
-        public IMaterialPropertyAccess<float> IndirectLightIntensity => _access.Float("_IndirectLightIntensity");
+        // Emission Properties
+        public IMaterialTexturePropertyAccess<Texture2D> EmissionMap => MaterialAccess.Texture2D("_EmissionMap");
+        public IMaterialPropertyAccess<Color> EmissionColor => MaterialAccess.Color("_EmissionColor");
+        public IMaterialTexturePropertyAccess<Texture2D> SphereAdd => MaterialAccess.Texture2D("_SphereAdd");
 
-        public IMaterialPropertyAccess<Color> RimColor => _access.Color("_RimColor");
-        public IMaterialPropertyAccess<Texture2D> RimTexture => _access.Texture2D("_RimTexture");
-        public IMaterialPropertyAccess<float> RimLightingMix => _access.Float("_RimLightingMix");
-        public IMaterialPropertyAccess<float> RimFresnelPower => _access.Float("_RimFresnelPower");
-        public IMaterialPropertyAccess<float> RimLift => _access.Float("_RimLift");
+        // Rim Properties
+        public IMaterialPropertyAccess<Color> RimColor => MaterialAccess.Color("_RimColor");
+        public IMaterialTexturePropertyAccess<Texture2D> RimTexture => MaterialAccess.Texture2D("_RimTexture");
+        public IMaterialPropertyAccess<float> RimLightingMix => MaterialAccess.Float("_RimLightingMix");
+        public IMaterialPropertyAccess<float> RimFresnelPower => MaterialAccess.Float("_RimFresnelPower");
+        public IMaterialPropertyAccess<float> RimLift => MaterialAccess.Float("_RimLift");
 
-        public IMaterialPropertyAccess<MToonEnums.OutlineWidthMode> OutlineWidthMode => _access.FloatEnum<MToonEnums.OutlineWidthMode>("_OutlineWidthMode");
-        public IMaterialPropertyAccess<float> OutlineWidth => _access.Float("_OutlineWidth");
-        public IMaterialPropertyAccess<Color> OutlineColor => _access.Color("_OutlineColor");
-        public IMaterialPropertyAccess<float> OutlineLightingMix => _access.Float("_OutlineLightingMix");
-        public IMaterialPropertyAccess<Texture2D> OutlineWidthTexture => _access.Texture2D("_OutlineWidthTexture");
+        // Outline Properties
+        public IMaterialPropertyAccess<MToonEnums.OutlineWidthMode> OutlineWidthMode => MaterialAccess.FloatEnum<MToonEnums.OutlineWidthMode>("_OutlineWidthMode");
+        public IMaterialPropertyAccess<float> OutlineWidth => MaterialAccess.Float("_OutlineWidth");
+        public IMaterialPropertyAccess<Color> OutlineColor => MaterialAccess.Color("_OutlineColor");
+        public IMaterialPropertyAccess<float> OutlineLightingMix => MaterialAccess.Float("_OutlineLightingMix");
+        public IMaterialTexturePropertyAccess<Texture2D> OutlineWidthTexture => MaterialAccess.Texture2D("_OutlineWidthTexture");
+        public IMaterialPropertyAccess<float> OutlineColorMode => MaterialAccess.Float("_OutlineColorMode");
+        public IMaterialPropertyAccess<float> OutlineCullMode => MaterialAccess.Float("_OutlineCullMode");
 
-        public IMaterialPropertyAccess<Texture2D> UvAnimMaskTexture => _access.Texture2D("_UvAnimMaskTexture");
-        public IMaterialPropertyAccess<float> UvAnimScrollX => _access.Float("_UvAnimScrollX");
-        public IMaterialPropertyAccess<float> UvAnimScrollY => _access.Float("_UvAnimScrollY");
-        public IMaterialPropertyAccess<float> UvAnimRotation => _access.Float("_UvAnimRotation");
+        // UV Animation Properties
+        public IMaterialTexturePropertyAccess<Texture2D> UvAnimMaskTexture => MaterialAccess.Texture2D("_UvAnimMaskTexture");
+        public IMaterialPropertyAccess<float> UvAnimScrollX => MaterialAccess.Float("_UvAnimScrollX");
+        public IMaterialPropertyAccess<float> UvAnimScrollY => MaterialAccess.Float("_UvAnimScrollY");
+        public IMaterialPropertyAccess<float> UvAnimRotation => MaterialAccess.Float("_UvAnimRotation");
+        
+        // ReSharper disable InconsistentNaming
+        // Keywords
+        public IMaterialPropertyAccess<bool> ALPHATEST_ON => MaterialAccess.Keyword("_ALPHATEST_ON");
+        public IMaterialPropertyAccess<bool> ALPHABLEND_ON => MaterialAccess.Keyword("_ALPHABLEND_ON");
+        public IMaterialPropertyAccess<bool> MTOON_OUTLINE_WIDTH_WORLD => MaterialAccess.Keyword("_MTOON_OUTLINE_WIDTH_WORLD");
+        public IMaterialPropertyAccess<bool> MTOON_OUTLINE_COLOR_MIXED => MaterialAccess.Keyword("_MTOON_OUTLINE_COLOR_MIXED");
+        // ReSharper restore InconsistentNaming
     }
 }
