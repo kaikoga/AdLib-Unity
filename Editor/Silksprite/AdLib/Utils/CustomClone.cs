@@ -19,6 +19,12 @@ namespace Silksprite.AdLib.Utils
         [PublicAPI]
         public (TOut mainAsset, IEnumerable<Object> subAssets) Clone(T source)
         {
+            var result = DoClone(source);
+            return (result.mainAsset, result.context.Mapping.Values.Where(a => a != result.mainAsset).ToArray());
+        }
+
+        (TOut mainAsset, CustomCloneContext context) DoClone(T source)
+        {
             if (_descriptor == null)
             {
                 _descriptor = new CopyStrategyDescriptor();
@@ -27,19 +33,23 @@ namespace Silksprite.AdLib.Utils
             
             var context = new CustomCloneContext(_descriptor);
             var mainAsset = context.CachedClone(source) as TOut;
-            var subAssets = context.Mapping.Values.Where(a => a != mainAsset).ToArray();
-            return (mainAsset, subAssets);
+            return (mainAsset, context);
         }
 
         [PublicAPI]
-        public Object CloneAsNewAsset(T source, string assetPath)
+        public Object CloneAsNewAsset(T source, string assetPath, HideFlags? overrideSubAssetHideFlags = null)
         {
-            var assets = Clone(source);
+            var assets = DoClone(source);
             AssetDatabase.CreateAsset(assets.mainAsset, assetPath);
-            foreach (var subAsset in assets.subAssets)
+            foreach (var mapping in assets.context.Mapping
+                         .Where(mapping => mapping.Value != assets.mainAsset))
             {
-                AssetDatabase.AddObjectToAsset(subAsset, assets.mainAsset);
-                subAsset.hideFlags = HideFlags.None;
+                AssetDatabase.AddObjectToAsset(mapping.Value, assets.mainAsset);
+                mapping.Value.hideFlags = overrideSubAssetHideFlags switch
+                {
+                    { } value => value,
+                    null => mapping.Key.hideFlags
+                };
             }
             AssetDatabase.SaveAssets();
             return assets.mainAsset;
@@ -75,15 +85,14 @@ namespace Silksprite.AdLib.Utils
         public List<ICopyStrategy> List { get; } = new List<ICopyStrategy>();
         public void Add(ICopyStrategy copyStrategy) => List.Add(copyStrategy);
 
-        public void ShallowCopy<T>() where T : Object => Add(new ShallowCopy<T>());
-        public void DeepCopy<T>(Func<Object, T> instantiate = null, Action<T, CustomCloneContext> duplicateFields = null, Action<T> postProcess = null)
+        public void ShallowCopy<T>(bool childClasses = false) where T : Object => Add(new ShallowCopy<T>(childClasses));
+        public void DeepCopy<T>(bool childClasses = false, Func<Object, T> instantiate = null, Action<T, CustomCloneContext> duplicateFields = null, Action<T> postProcess = null)
             where T : Object
         {
-            Add(new DeepCopy<T>(instantiate, duplicateFields, postProcess));
+            Add(new DeepCopy<T>(childClasses, instantiate, duplicateFields, postProcess));
         }
     }
 
-    
     public interface ICopyStrategy
     {
         bool Match(Object source);
@@ -93,25 +102,34 @@ namespace Silksprite.AdLib.Utils
     public class ShallowCopy<T> : ICopyStrategy
         where T : Object
     {
-        public bool Match(Object source) => source is T;
+        readonly bool _childClasses;
+
+        public bool Match(Object source) => _childClasses ? source is T : source.GetType() == typeof(T);
         public Object GetCopy(Object source, CustomCloneContext context) => source;
+
+        public ShallowCopy(bool childClasses = false)
+        {
+            _childClasses = childClasses;
+        }
     }
     
     public class DeepCopy<T> : ICopyStrategy
         where T : Object
     {
+        readonly bool _childClasses;
         readonly Func<Object, T> _instantiate;
         readonly Action<T, CustomCloneContext> _duplicateFields;
         readonly Action<T> _postProcess;
 
-        public DeepCopy(Func<Object, T> instantiate = null, Action<T, CustomCloneContext> duplicateFields = null, Action<T> postProcess = null)
+        public DeepCopy(bool childClasses = false, Func<Object, T> instantiate = null, Action<T, CustomCloneContext> duplicateFields = null, Action<T> postProcess = null)
         {
+            _childClasses = childClasses;
             _instantiate = instantiate ?? Instantiate;
             _duplicateFields = duplicateFields ?? DuplicateFields;
             _postProcess = postProcess ?? Postprocess;
         }
 
-        public bool Match(Object source) => source is T;
+        public bool Match(Object source) => _childClasses ? source is T : source.GetType() == typeof(T);
 
         public Object GetCopy(Object source, CustomCloneContext context)
         {
@@ -152,10 +170,15 @@ namespace Silksprite.AdLib.Utils
                 switch (it.propertyType)
                 {
                     case SerializedPropertyType.ObjectReference:
+                        if (it.objectReferenceValue == target)
+                        {
+                            // Skip self reference, already duplicated
+                            break;
+                        }
                         it.objectReferenceValue = context.CachedClone(it.objectReferenceValue);
                         break;
-                    // Iterating strings can get super slow...
                     case SerializedPropertyType.String:
+                        // Iterating strings can get super slow...
                         enterChildren = false;
                         break;
                 }
