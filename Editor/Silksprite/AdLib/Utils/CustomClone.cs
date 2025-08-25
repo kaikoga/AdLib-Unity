@@ -23,17 +23,13 @@ namespace Silksprite.AdLib.Utils
             return (result.mainAsset, result.context.Mapping.Values.Where(a => a != result.mainAsset).ToArray());
         }
 
-        (TOut mainAsset, CustomCloneContext context) DoClone(T source)
+        [PublicAPI]
+        public (TOut mainAsset, Dictionary<Object, Object> mappings) CloneWithMappings(T source)
         {
-            if (_descriptor == null)
-            {
-                _descriptor = new CopyStrategyDescriptor();
-                Define(_descriptor);                
-            }
-            
-            var context = new CustomCloneContext(_descriptor);
-            var mainAsset = context.CachedClone(source) as TOut;
-            return (mainAsset, context);
+            var result = DoClone(source);
+            return (result.mainAsset, result.context.Mapping
+                .Where(mapping => mapping.Value != result.mainAsset)
+                .ToDictionary(mapping => mapping.Key, mapping => mapping.Value));
         }
 
         [PublicAPI]
@@ -53,6 +49,19 @@ namespace Silksprite.AdLib.Utils
             }
             AssetDatabase.SaveAssets();
             return assets.mainAsset;
+        }
+        
+        (TOut mainAsset, CustomCloneContext context) DoClone(T source)
+        {
+            if (_descriptor == null)
+            {
+                _descriptor = new CopyStrategyDescriptor();
+                Define(_descriptor);                
+            }
+            
+            var context = new CustomCloneContext(_descriptor);
+            var mainAsset = context.CachedClone(source) as TOut;
+            return (mainAsset, context);
         }
     }
     
