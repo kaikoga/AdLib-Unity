@@ -1,4 +1,4 @@
-#if VRM1
+#if ADLIB_VRM1 || ATIV_DETECTED_VRM1
 
 using UnityEditor;
 using UnityEngine;
