@@ -23,6 +23,7 @@ namespace Silksprite.AdLib.Mesh
         public readonly List<MutableSubMesh<TMaterial>> SubMeshes = new List<MutableSubMesh<TMaterial>>();
 
         public readonly List<MutableBlendShape> BlendShapes = new List<MutableBlendShape>();
+        public readonly List<float> BlendShapeWeights = new List<float>();
 
         public IEnumerable<TMaterial> Materials => SubMeshes.Select(subMesh => subMesh.Material);
 
@@ -33,7 +34,7 @@ namespace Silksprite.AdLib.Mesh
             Name = name;
         }
 
-        public MutableMesh(UnityEngine.Mesh mesh, MutableBoneMapping<TBone> bones, IEnumerable<TMaterial> materials) : this(mesh.name)
+        public MutableMesh(UnityEngine.Mesh mesh, IEnumerable<float> blendShapeWeights, MutableBoneMapping<TBone> bones, IEnumerable<TMaterial> materials) : this(mesh.name)
         {
             Bones.AddRange(bones);
 
@@ -59,6 +60,7 @@ namespace Silksprite.AdLib.Mesh
                     }));
 
             BlendShapes.AddRange(mesh.MutableBlendShapes());
+            BlendShapeWeights.AddRange(blendShapeWeights);
         }
 
         public void Add(UnityEngine.Mesh mesh, MutableBoneMapping<TBone> bones, IEnumerable<TMaterial> materials)

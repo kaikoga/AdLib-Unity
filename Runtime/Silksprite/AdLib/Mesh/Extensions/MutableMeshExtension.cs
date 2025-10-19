@@ -36,7 +36,11 @@ namespace Silksprite.AdLib.Mesh.Extensions
 
         public static MutableMesh<Transform, UnityEngine.Material> ToMutableMesh(this SkinnedMeshRenderer source)
         {
-            return new MutableMesh<Transform, UnityEngine.Material>(source.sharedMesh, MutableBoneMapping.From(source), source.sharedMaterials);
+            return new MutableMesh<Transform, UnityEngine.Material>(
+                source.sharedMesh,
+                Enumerable.Range(0, source.sharedMesh.blendShapeCount).Select(source.GetBlendShapeWeight),
+                MutableBoneMapping.From(source),
+                source.sharedMaterials);
         }
 
         public static void Add(this MutableMesh<Transform, UnityEngine.Material> mutableMesh, SkinnedMeshRenderer skinnedMeshRenderer)
