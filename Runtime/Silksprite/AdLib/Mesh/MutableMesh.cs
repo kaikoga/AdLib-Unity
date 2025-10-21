@@ -1,31 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using Silksprite.AdLib.Mesh.Extensions;
-using Silksprite.AdLib.Mesh.View;
 using UnityEngine;
 
 namespace Silksprite.AdLib.Mesh
 {
-    public partial class MutableMesh<TBone, TMaterial>
+    public partial class MutableMesh
     {
         public readonly string Name;
 
-        public readonly MutableBoneMapping<TBone> Bones = new MutableBoneMapping<TBone>();
+        public readonly MutableBoneList BoneList = new MutableBoneList();
 
         public readonly List<Vector3> Vertices = new List<Vector3>();
-        public readonly List<MutableBoneWeight<TBone>> BoneWeights = new List<MutableBoneWeight<TBone>>();
+        public readonly List<MutableBoneWeight> BoneWeights = new List<MutableBoneWeight>();
         public readonly List<Vector3> Normals = new List<Vector3>();
         public readonly List<Vector4> Tangents = new List<Vector4>();
         public readonly List<Color32> Colors = new List<Color32>();
 
         public readonly List<Vector2>[] Uvs = Enumerable.Range(0, 8).Select(i => new List<Vector2>()).ToArray();
 
-        public readonly List<MutableSubMesh<TMaterial>> SubMeshes = new List<MutableSubMesh<TMaterial>>();
+        public readonly List<MutableSubMesh> SubMeshes = new List<MutableSubMesh>();
 
         public readonly List<MutableBlendShape> BlendShapes = new List<MutableBlendShape>();
-        public readonly List<float> BlendShapeWeights = new List<float>();
-
-        public IEnumerable<TMaterial> Materials => SubMeshes.Select(subMesh => subMesh.Material);
 
         const int UvChannels = 8;
 
@@ -34,13 +30,12 @@ namespace Silksprite.AdLib.Mesh
             Name = name;
         }
 
-        public MutableMesh(UnityEngine.Mesh mesh, IEnumerable<float> blendShapeWeights, MutableBoneMapping<TBone> bones, IEnumerable<TMaterial> materials) : this(mesh.name)
+        public MutableMesh(UnityEngine.Mesh mesh, MutableBoneList boneList) : this(mesh.name)
         {
-            Bones.AddRange(bones);
+            BoneList.AddRange(boneList);
 
             mesh.GetVertices(Vertices);
-            // BoneWeights.AddRange(mesh.boneWeights.Select(boneWeight => MutableBoneWeight<TBone>.FromBoneWeight(boneWeight, Bones)));
-            BoneWeights.AddRange(mesh.GetBoneWeights(bones));
+            BoneWeights.AddRange(mesh.GetMutableBoneWeights(BoneList));
             mesh.GetNormals(Normals);
             mesh.GetTangents(Tangents);
             mesh.GetColors(Colors);
@@ -51,27 +46,24 @@ namespace Silksprite.AdLib.Mesh
             }
 
             SubMeshes.AddRange(Enumerable.Range(0, mesh.subMeshCount)
-                .Zip(materials.Concat(Enumerable.Repeat<TMaterial>(default, mesh.subMeshCount)),
-                    (subMeshIndex, material) =>
-                    {
-                        var indices = new List<int>();
-                        mesh.GetIndices(indices, subMeshIndex);
-                        return new MutableSubMesh<TMaterial>(indices, material);
-                    }));
+                .Select(subMeshIndex =>
+                {
+                    var indices = new List<int>();
+                    mesh.GetIndices(indices, subMeshIndex);
+                    return new MutableSubMesh(indices);
+                }));
 
-            BlendShapes.AddRange(mesh.MutableBlendShapes());
-            BlendShapeWeights.AddRange(blendShapeWeights);
+            BlendShapes.AddRange(mesh.GetMutableBlendShapes());
         }
 
-        public void Add(UnityEngine.Mesh mesh, MutableBoneMapping<TBone> bones, IEnumerable<TMaterial> materials)
+        public void Add(UnityEngine.Mesh mesh, MutableBoneList boneList)
         {
-            Bones.AddRange(bones);
+            BoneList.AddRange(boneList);
 
             var myVertexCount = Vertices.Count;
 
             Vertices.AddRange(mesh.vertices);
-            // BoneWeights.AddRange(mesh.boneWeights.Select(boneWeight => MutableBoneWeight<TBone>.FromBoneWeight(boneWeight, Bones)));
-            BoneWeights.AddRange(mesh.GetBoneWeights(Bones));
+            BoneWeights.AddRange(mesh.GetMutableBoneWeights(boneList));
             Normals.AddRange(mesh.normals);
             Tangents.AddRange(mesh.tangents);
             Colors.AddRange(mesh.colors32);
@@ -86,28 +78,26 @@ namespace Silksprite.AdLib.Mesh
 
             var workIndices = new List<int>();
             SubMeshes.AddRange(Enumerable.Range(0, mesh.subMeshCount)
-                .Zip(materials.Concat(Enumerable.Repeat<TMaterial>(default, mesh.subMeshCount)),
-                    (subMeshIndex, material) =>
-                    {
-                        mesh.GetIndices(workIndices, subMeshIndex);
-                        return new MutableSubMesh<TMaterial>(workIndices.Select(i => i + myVertexCount), material);
-                    }));
+                .Select(subMeshIndex =>
+                {
+                    mesh.GetIndices(workIndices, subMeshIndex);
+                    return new MutableSubMesh(workIndices.Select(i => i + myVertexCount));
+                }));
 
-            // TODO deal with frame weights
-            var vertexCount = mesh.vertexCount;
             var blendShapes = new List<MutableBlendShape>();
-            var meshBlendShapes = mesh.MutableBlendShapes().ToArray();
+            var meshBlendShapes = mesh.GetMutableBlendShapes().ToArray();
 
             foreach (var blendShape in BlendShapes)
             {
                 var meshBlendShape = meshBlendShapes.FirstOrDefault(bs => bs.BlendShapeName == blendShape.BlendShapeName);
-                blendShape.Add(meshBlendShape ?? new MutableBlendShape(blendShape.BlendShapeName, blendShape.FrameWeight, vertexCount));
+                blendShape.Add(meshBlendShape);
                 blendShapes.Add(blendShape);
             }
             foreach (var meshBlendShape in meshBlendShapes)
             {
                 if (BlendShapes.Any(bs => bs.BlendShapeName == meshBlendShape.BlendShapeName)) continue;
-                var blendShape = new MutableBlendShape(meshBlendShape.BlendShapeName, meshBlendShape.FrameWeight, myVertexCount);
+                var blendShape = new MutableBlendShape(meshBlendShape.BlendShapeName);
+                blendShape.AddZeros(myVertexCount);
                 blendShape.Add(meshBlendShape);
                 blendShapes.Add(blendShape);
             }
@@ -117,11 +107,10 @@ namespace Silksprite.AdLib.Mesh
 
         public void ExportTo(UnityEngine.Mesh mesh)
         {
-            mesh.bindposes = Bones.BindPoses.ToArray();
+            mesh.bindposes = BoneList.Bones.Select(bone => bone.BindPose).ToArray();
 
             mesh.SetVertices(Vertices);
-            // mesh.boneWeights = BoneWeights.Select(mutableBoneWeight => mutableBoneWeight.ToBoneWeight(Bones)).ToArray();
-            mesh.SetBoneWeights(Bones, BoneWeights);
+            mesh.SetBoneWeights(BoneList, BoneWeights);
             mesh.SetNormals(Normals);
             mesh.SetTangents(Tangents);
             mesh.SetColors(Colors);
@@ -140,14 +129,15 @@ namespace Silksprite.AdLib.Mesh
             mesh.ClearBlendShapes();
             foreach (var blendShape in BlendShapes)
             {
-                mesh.AddBlendShapeFrame(blendShape.BlendShapeName,
-                    blendShape.FrameWeight,
-                    blendShape.DeltaVertices.ToArray(),
-                    blendShape.DeltaNormals.ToArray(),
-                    blendShape.DeltaTangents.ToArray());
+                foreach (var frame in blendShape.SingleFrames)
+                {
+                    mesh.AddBlendShapeFrame(blendShape.BlendShapeName,
+                        frame.FrameWeight,
+                        frame.DeltaVertices.ToArray(),
+                        frame.DeltaNormals.ToArray(),
+                        frame.DeltaTangents.ToArray());
+                }
             }
         }
-        
-        public MutableMeshView<TBone, TMaterial> View() => new MutableMeshView<TBone,TMaterial>(this);
     }
 }

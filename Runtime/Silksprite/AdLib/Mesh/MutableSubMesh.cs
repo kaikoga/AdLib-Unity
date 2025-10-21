@@ -3,17 +3,15 @@ using System.Linq;
 
 namespace Silksprite.AdLib.Mesh
 {
-    public class MutableSubMesh<TMaterial>
+    public class MutableSubMesh
     {
         public readonly List<int> Indices;
-        public readonly TMaterial Material;
 
-        public MutableSubMesh(List<int> indices, TMaterial material)
+        public MutableSubMesh(List<int> indices)
         {
             Indices = indices;
-            Material = material;
         }
 
-        public MutableSubMesh(IEnumerable<int> indices, TMaterial material) : this (indices.ToList(), material) { }
+        public MutableSubMesh(IEnumerable<int> indices) : this(indices.ToList()) { }
     }
 }

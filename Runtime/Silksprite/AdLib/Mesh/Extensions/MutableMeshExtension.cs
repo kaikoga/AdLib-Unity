@@ -7,45 +7,49 @@ namespace Silksprite.AdLib.Mesh.Extensions
 {
     public static class MutableMeshExtension
     {
-        public static void BakeBlendShapes(this MutableMesh<Transform, UnityEngine.Material> mesh, Dictionary<string, float> values)
+        public static void BakeBlendShapes(this MutableMesh mesh, Dictionary<string, float> values)
         {
             var blendShapes = mesh.BlendShapes;
-            foreach (var kv in values)
+            foreach (var (shapeName, shapeValue) in values)
             {
-                var shapeName = kv.Key;
-                var shapeValue = kv.Value;
-                var blendShape = blendShapes.Where(bs => bs.BlendShapeName == shapeName)
-                    .OrderByDescending(bs => bs.FrameWeight).First(); // TODO: multiple blend shape frames support
-                var weight = shapeValue / blendShape.FrameWeight;
+                if (blendShapes.FirstOrDefault(bs => bs.BlendShapeName == shapeName) is not { } blendShape)
+                {
+                    continue;
+                }
+                if (blendShape.SingleFrames.FirstOrDefault() is not { } frame)
+                {
+                    continue;
+                }
+                var weight = shapeValue / frame.FrameWeight;
                 for (var i = 0; i < mesh.Vertices.Count; i++)
                 {
-                    mesh.Vertices[i] += blendShape.DeltaVertices[i] * weight;
-                    mesh.Normals[i] += blendShape.DeltaNormals[i] * weight;
-                    mesh.Tangents[i] += (Vector4)blendShape.DeltaTangents[i] * weight;
+                    mesh.Vertices[i] += frame.DeltaVertices[i] * weight;
+                    mesh.Normals[i] += frame.DeltaNormals[i] * weight;
+                    mesh.Tangents[i] += (Vector4)frame.DeltaTangents[i] * weight;
                 }
             }
             mesh.ModifyBlendShapes(blendShape => values.ContainsKey(blendShape.BlendShapeName) ? null : blendShape);
         }
 
-        public static void ModifyBlendShapes(this MutableMesh<Transform, UnityEngine.Material> mesh, Func<MutableBlendShape, MutableBlendShape> modifier)
+        public static void ModifyBlendShapes(this MutableMesh mesh, Func<MutableBlendShape, MutableBlendShape> modifier)
         {
             var blendShapes = mesh.BlendShapes.ToArray();
             mesh.BlendShapes.Clear();
             mesh.BlendShapes.AddRange(blendShapes.Select(modifier).Where(blendShape => blendShape != null));
         }
 
-        public static MutableMesh<Transform, UnityEngine.Material> ToMutableMesh(this SkinnedMeshRenderer source)
+        public static MutableMeshState<Transform, UnityEngine.Material> ToMutableMeshState(this SkinnedMeshRenderer source)
         {
-            return new MutableMesh<Transform, UnityEngine.Material>(
+            return new MutableMeshState<Transform, UnityEngine.Material>(
                 source.sharedMesh,
                 Enumerable.Range(0, source.sharedMesh.blendShapeCount).Select(source.GetBlendShapeWeight),
                 MutableBoneMapping.From(source),
                 source.sharedMaterials);
         }
 
-        public static void Add(this MutableMesh<Transform, UnityEngine.Material> mutableMesh, SkinnedMeshRenderer skinnedMeshRenderer)
+        public static void Add(this MutableMeshState<Transform, UnityEngine.Material> mutableMeshState, SkinnedMeshRenderer skinnedMeshRenderer)
         {
-            mutableMesh.Add(skinnedMeshRenderer.sharedMesh, MutableBoneMapping.From(skinnedMeshRenderer), skinnedMeshRenderer.sharedMaterials);
+            mutableMeshState.Add(skinnedMeshRenderer.sharedMesh, MutableBoneMapping.From(skinnedMeshRenderer), skinnedMeshRenderer.sharedMaterials);
         }
     }
 }

@@ -1,33 +1,35 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Silksprite.AdLib.Mesh
 {
-    public partial class MutableMesh<TBone, TMaterial>
+    public partial class MutableMesh
     {
-        void MergeSubMeshes()
+        public void MergeSubMeshes(int[][] subMeshMapping)
         {
-            var subMeshes = SubMeshes.GroupBy(subMesh => subMesh.Material)
-                .Select(subMeshGroup =>
-                {
-                    return new MutableSubMesh<TMaterial>(subMeshGroup.SelectMany(subMesh => subMesh.Indices), subMeshGroup.Key);
-                }).ToArray();
+            var oldSubMeshes = SubMeshes.ToArray();
             SubMeshes.Clear();
-            SubMeshes.AddRange(subMeshes);
+            SubMeshes.AddRange(subMeshMapping.Select(indices =>
+            {
+                return indices.SelectMany(i => oldSubMeshes[i].Indices);
+            }).Select(indices => new MutableSubMesh(indices)));
         }
 
-        void RemoveUnusedBones()
+        public void RemapBones(Func<MutableBone, MutableBone> remapFunc)
         {
-            var boneObjects = BoneWeights.SelectMany(boneWeight => boneWeight.Bones.Select(bone => bone.BoneObject)).Distinct().ToArray();
-            Bones.Filter(boneObjects);
+            foreach (var boneWeights in BoneWeights)
+            {
+                for (var i = 0; i < boneWeights.BoneWeights.Count; i++)
+                {
+                    var bw = boneWeights.BoneWeights[i];
+                    bw.bone = remapFunc(bw.bone);
+                    boneWeights.BoneWeights[i] = bw;
+                }
+            }
         }
 
-        void RemoveDuplicateBones()
-        {
-            Bones.Distinct();
-        }
-
-        void RemoveUnusedVertices()
+        public void RemoveUnusedVertices()
         {
             var oldIndices = new List<int>(Vertices.Count);
             var newIndices = new List<int>(Vertices.Count);
@@ -61,22 +63,14 @@ namespace Silksprite.AdLib.Mesh
             FilterVertices(Tangents);
             FilterVertices(Colors);
             foreach (var uv in Uvs) FilterVertices(uv);
-            foreach (var blendShape in BlendShapes)
+            foreach (var frame in BlendShapes.SelectMany(blendShape => blendShape.SingleFrames))
             {
-                FilterVertices(blendShape.DeltaVertices);
-                FilterVertices(blendShape.DeltaNormals);
-                FilterVertices(blendShape.DeltaTangents);
+                FilterVertices(frame.DeltaVertices);
+                FilterVertices(frame.DeltaNormals);
+                FilterVertices(frame.DeltaTangents);
             }
             
             foreach (var subMesh in SubMeshes) MapIndices(subMesh.Indices);
-        }
-
-        public void GC()
-        {
-            MergeSubMeshes();
-            RemoveUnusedBones();
-            RemoveDuplicateBones();
-            RemoveUnusedVertices();
         }
 
         public void GCInPlace()

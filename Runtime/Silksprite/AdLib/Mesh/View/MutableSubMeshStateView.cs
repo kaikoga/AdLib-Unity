@@ -4,31 +4,31 @@ using JetBrains.Annotations;
 
 namespace Silksprite.AdLib.Mesh.View
 {
-    public readonly struct MutableSubMeshView<TBone, TMaterial>
+    public readonly struct MutableSubMeshStateView<TBone, TMaterial>
     {
         [PublicAPI]
-        public readonly MutableMesh<TBone, TMaterial> Mesh;
+        public readonly MutableMeshState<TBone, TMaterial> MeshState;
         [PublicAPI]
-        public readonly MutableSubMesh<TMaterial> SubMesh;
+        public readonly MutableSubMesh SubMesh;
 
         public List<int> Indices => SubMesh.Indices;
 
-        public MutableSubMeshView(MutableMesh<TBone, TMaterial> mesh, MutableSubMesh<TMaterial> subMesh)
+        public MutableSubMeshStateView(MutableMeshState<TBone, TMaterial> meshState, MutableSubMesh subMesh)
         {
-            Mesh = mesh;
+            MeshState = meshState;
             SubMesh = subMesh;
         }
 
-        public IEnumerable<MutableVertexView<TBone, TMaterial>> Vertices
+        public IEnumerable<MutableVertexStateView<TBone, TMaterial>> Vertices
         {
             get
             {
-                var mesh = Mesh;
-                return SubMesh.Indices.Select(index => new MutableVertexView<TBone, TMaterial>(mesh, index));
+                var meshState = MeshState;
+                return SubMesh.Indices.Select(index => new MutableVertexStateView<TBone, TMaterial>(meshState, index));
             }
         }
 
-        public IEnumerable<MutableTriangleView<TBone, TMaterial>> Triangles
+        public IEnumerable<MutableTriangleStateView<TBone, TMaterial>> Triangles
         {
             get
             {
@@ -41,7 +41,7 @@ namespace Silksprite.AdLib.Mesh.View
                     var b = SubMesh.Indices[i++];
                     if (i >= SubMesh.Indices.Count) break;
                     var c = SubMesh.Indices[i++];
-                    yield return new MutableTriangleView<TBone, TMaterial>(Mesh, a, b, c);
+                    yield return new MutableTriangleStateView<TBone, TMaterial>(MeshState, a, b, c);
                 }
             }
         }

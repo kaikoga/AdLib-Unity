@@ -2,17 +2,19 @@ using UnityEngine;
 
 namespace Silksprite.AdLib.Mesh.View.Extensions
 {
-    public static class MutableVertexViewExtension
+    public static class MutableVertexStateViewExtension
     {
-        public static Vector3 CalculateActualPosition<TMaterial>(this MutableVertexView<Transform, TMaterial> vertex)
+        public static Vector3 CalculateActualPosition<TMaterial>(this MutableVertexStateView<Transform, TMaterial> vertexState)
         {
             // TODO: blendShape values
-            var v = vertex.Mesh.Vertices[vertex.Index];
+            var mesh = vertexState.MeshState.Mesh;
+            var v = mesh.Vertices[vertexState.Index];
             var m = Matrix4x4.zero;
-            foreach (var bw in vertex.Mesh.BoneWeights[vertex.Index].BoneWeights)
+            foreach (var bw in mesh.BoneWeights[vertexState.Index].BoneWeights)
             {
-                var boneTransform = bw.bone.BoneObject.localToWorldMatrix;
-                var bindPose = vertex.Mesh.Bones.BindPose(bw.bone.BoneObject);
+                var boneObject = vertexState.MeshState.BoneMapping.BoneObject(bw.bone);
+                var boneTransform = boneObject.localToWorldMatrix;
+                var bindPose = bw.bone.BindPose;
                 var mm = boneTransform * bindPose;
 
                 m.m00 += mm.m00 * bw.weight;
