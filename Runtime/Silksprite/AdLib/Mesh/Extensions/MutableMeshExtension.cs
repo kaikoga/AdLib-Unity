@@ -16,16 +16,12 @@ namespace Silksprite.AdLib.Mesh.Extensions
                 {
                     continue;
                 }
-                if (blendShape.SingleFrames.FirstOrDefault() is not { } frame)
-                {
-                    continue;
-                }
-                var weight = shapeValue / frame.FrameWeight;
+                var frame = blendShape.GetState(shapeValue).BakeToFrame(0f);
                 for (var i = 0; i < mesh.Vertices.Count; i++)
                 {
-                    mesh.Vertices[i] += frame.DeltaVertices[i] * weight;
-                    mesh.Normals[i] += frame.DeltaNormals[i] * weight;
-                    mesh.Tangents[i] += (Vector4)frame.DeltaTangents[i] * weight;
+                    mesh.Vertices[i] += frame.DeltaVertices[i];
+                    mesh.Normals[i] += frame.DeltaNormals[i];
+                    mesh.Tangents[i] += (Vector4)frame.DeltaTangents[i];
                 }
             }
             mesh.ModifyBlendShapes(blendShape => values.ContainsKey(blendShape.BlendShapeName) ? null : blendShape);

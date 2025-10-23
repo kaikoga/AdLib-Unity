@@ -6,13 +6,22 @@ namespace Silksprite.AdLib.Mesh.View.Extensions
     {
         public static Vector3 CalculateActualPosition<TMaterial>(this MutableVertexStateView<Transform, TMaterial> vertexState)
         {
-            // TODO: blendShape values
             var mesh = vertexState.MeshState.Mesh;
+            var meshState = vertexState.MeshState;
             var v = mesh.Vertices[vertexState.Index];
+            // blendShapes
+            for (var i = 0; i < mesh.BlendShapes.Count; i++)
+            {
+                var blendShapeWeight = meshState.BlendShapeWeights[i];
+                var blendShapeState = mesh.BlendShapes[i].GetState(blendShapeWeight);
+                v += blendShapeState.DeltaVertex(vertexState.Index);
+            }
+
+            // bone 
             var m = Matrix4x4.zero;
             foreach (var bw in mesh.BoneWeights[vertexState.Index].BoneWeights)
             {
-                var boneObject = vertexState.MeshState.BoneMapping.BoneObject(bw.bone);
+                var boneObject = meshState.BoneMapping.BoneObject(bw.bone);
                 var boneTransform = boneObject.localToWorldMatrix;
                 var bindPose = bw.bone.BindPose;
                 var mm = boneTransform * bindPose;

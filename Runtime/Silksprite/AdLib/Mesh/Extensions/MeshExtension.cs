@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Silksprite.AdLib.Mesh.Extensions
 {
@@ -12,17 +13,19 @@ namespace Silksprite.AdLib.Mesh.Extensions
             return Enumerable.Range(0, mesh.blendShapeCount)
                 .Select(blendShapeIndex =>
                 {
-                    var blendShape = new MutableBlendShape(mesh.GetBlendShapeName(blendShapeIndex));
-                    blendShape.SingleFrames.AddRange(Enumerable.Range(mesh.GetBlendShapeFrameCount(blendShapeIndex) - 1, 1)
-                        .Select(blendShapeFrameIndex =>
-                        {
-                            var frameWeight = mesh.GetBlendShapeFrameWeight(blendShapeIndex, blendShapeFrameIndex);
-                            var deltaVertices = new Vector3[mesh.vertexCount];
-                            var deltaNormals = new Vector3[mesh.vertexCount];
-                            var deltaTangents = new Vector3[mesh.vertexCount];
-                            mesh.GetBlendShapeFrameVertices(blendShapeIndex, blendShapeFrameIndex, deltaVertices, deltaNormals, deltaTangents);
-                            return new MutableBlendShapeFrame(frameWeight, deltaVertices, deltaNormals, deltaTangents);
-                        }));
+                    var blendShape = new MutableBlendShape(mesh.GetBlendShapeName(blendShapeIndex))
+                    {
+                        Frames = Enumerable.Range(0, mesh.GetBlendShapeFrameCount(blendShapeIndex))
+                            .Select(blendShapeFrameIndex =>
+                            {
+                                var frameWeight = mesh.GetBlendShapeFrameWeight(blendShapeIndex, blendShapeFrameIndex);
+                                var deltaVertices = new Vector3[mesh.vertexCount];
+                                var deltaNormals = new Vector3[mesh.vertexCount];
+                                var deltaTangents = new Vector3[mesh.vertexCount];
+                                mesh.GetBlendShapeFrameVertices(blendShapeIndex, blendShapeFrameIndex, deltaVertices, deltaNormals, deltaTangents);
+                                return new MutableBlendShapeFrame(frameWeight, deltaVertices, deltaNormals, deltaTangents);
+                            })
+                    };
                     return blendShape;
                 });
         }
@@ -39,7 +42,6 @@ namespace Silksprite.AdLib.Mesh.Extensions
                 for (var i = 0; i < c; i++)
                 {
                     var weight = nativeBoneWeights[p++];
-                    // FIXME: bounds check
                     weights.Add((boneList.Bone(weight.boneIndex), weight.weight));
                 }
                 yield return new MutableBoneWeight(weights);

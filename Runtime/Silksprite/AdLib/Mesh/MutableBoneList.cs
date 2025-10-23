@@ -19,6 +19,8 @@ namespace Silksprite.AdLib.Mesh
             }
         }
 
+        public int Size => _bones.Count;
+
         public IEnumerable<MutableBone> Bones => _bones;
 
         public MutableBone Bone(int index) => _bones[index];

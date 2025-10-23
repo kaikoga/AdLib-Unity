@@ -62,15 +62,20 @@ namespace Silksprite.AdLib.Mesh
             FilterVertices(Normals);
             FilterVertices(Tangents);
             FilterVertices(Colors);
-            foreach (var uv in Uvs) FilterVertices(uv);
-            foreach (var frame in BlendShapes.SelectMany(blendShape => blendShape.SingleFrames))
+            foreach (var uv in Uvs)
+            {
+                FilterVertices(uv);
+            }
+            foreach (var frame in BlendShapes.SelectMany(blendShape => blendShape.Frames))
             {
                 FilterVertices(frame.DeltaVertices);
                 FilterVertices(frame.DeltaNormals);
                 FilterVertices(frame.DeltaTangents);
             }
-            
-            foreach (var subMesh in SubMeshes) MapIndices(subMesh.Indices);
+            foreach (var subMesh in SubMeshes)
+            {
+                MapIndices(subMesh.Indices);
+            }
         }
 
         public void GCInPlace()

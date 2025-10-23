@@ -7,8 +7,6 @@ namespace Silksprite.AdLib.Mesh
 {
     public class MutableBoneWeight
     {
-        // FIXME: TBone may be null
-
         public readonly List<(MutableBone bone, float weight)> BoneWeights = new List<(MutableBone bone, float weight)>();
 
         public int Length => BoneWeights.Count;

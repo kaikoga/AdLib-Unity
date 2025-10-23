@@ -97,7 +97,7 @@ namespace Silksprite.AdLib.Mesh
             {
                 if (BlendShapes.Any(bs => bs.BlendShapeName == meshBlendShape.BlendShapeName)) continue;
                 var blendShape = new MutableBlendShape(meshBlendShape.BlendShapeName);
-                blendShape.AddZeros(myVertexCount);
+                blendShape.FillZeros(myVertexCount);
                 blendShape.Add(meshBlendShape);
                 blendShapes.Add(blendShape);
             }
@@ -129,7 +129,7 @@ namespace Silksprite.AdLib.Mesh
             mesh.ClearBlendShapes();
             foreach (var blendShape in BlendShapes)
             {
-                foreach (var frame in blendShape.SingleFrames)
+                foreach (var frame in blendShape.Frames)
                 {
                     mesh.AddBlendShapeFrame(blendShape.BlendShapeName,
                         frame.FrameWeight,
