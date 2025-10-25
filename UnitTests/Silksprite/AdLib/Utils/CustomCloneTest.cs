@@ -27,7 +27,7 @@ namespace Silksprite.AdLib.Utils
         {
             protected override void Define(CopyStrategyDescriptor descriptor)
             {
-                descriptor.ShallowCopy<Object>();
+                descriptor.ShallowCopy<Obj>();
             }
         }
 
