@@ -15,6 +15,7 @@ namespace Silksprite.AdLib.Mesh
             {
                 _frames.Clear();
                 _frames.AddRange(value);
+                _vertexCount = _frames.First()?.DeltaVertices.Count ?? 0;
             }
         }
 
@@ -43,6 +44,17 @@ namespace Silksprite.AdLib.Mesh
                 }));
             _frames.Clear();
             _frames.AddRange(frames);
+        }
+
+        public MutableBlendShape ToZero()
+        {
+            return new MutableBlendShape(BlendShapeName)
+            {
+                Frames = new []
+                {
+                    new MutableBlendShapeFrame(100f, _vertexCount)
+                }
+            };
         }
 
         public void FillZeros(int vertexCount)
@@ -178,6 +190,12 @@ namespace Silksprite.AdLib.Mesh
         public MutableBlendShapeFrame(float frameWeight)
         {
             FrameWeight = frameWeight;
+        }
+
+        public MutableBlendShapeFrame(float frameWeight, int zeroCount)
+        {
+            FrameWeight = frameWeight;
+            FillZeros(zeroCount);
         }
 
         public MutableBlendShapeFrame(float frameWeight, IEnumerable<Vector3> deltaVertices, IEnumerable<Vector3> deltaNormals, IEnumerable<Vector3> deltaTangents)

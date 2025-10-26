@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Silksprite.AdLib.Mesh.Extensions;
@@ -55,6 +56,9 @@ namespace Silksprite.AdLib.Mesh
 
             BlendShapes.AddRange(mesh.GetMutableBlendShapes());
         }
+
+        public int GetBlendShapeIndex(string name) => BlendShapes.FindIndex(blendShape => blendShape.BlendShapeName == name);
+        public string GetBlendShapeName(int index) => index >= 0 && index < BlendShapes.Count ? BlendShapes[index].BlendShapeName : null;
 
         public void Add(UnityEngine.Mesh mesh, MutableBoneList boneList)
         {
