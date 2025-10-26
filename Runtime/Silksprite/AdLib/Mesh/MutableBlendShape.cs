@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -28,8 +29,8 @@ namespace Silksprite.AdLib.Mesh
         public void Add(MutableBlendShape blendShape)
         {
             _vertexCount += blendShape._vertexCount;
-            _frames.Clear();
-            _frames.AddRange(Frames.Concat(blendShape.Frames)
+            var frames = new List<MutableBlendShapeFrame>();
+            frames.AddRange(Frames.Concat(blendShape.Frames)
                 .Select(frame => frame.FrameWeight)
                 .Distinct()
                 .OrderBy(frameWeight => frameWeight)
@@ -40,6 +41,8 @@ namespace Silksprite.AdLib.Mesh
                     newFrame.Add(blendShape.GetState(frameWeight));
                     return newFrame;
                 }));
+            _frames.Clear();
+            _frames.AddRange(frames);
         }
 
         public void FillZeros(int vertexCount)
@@ -53,26 +56,26 @@ namespace Silksprite.AdLib.Mesh
 
         public MutableBlendShapeState GetState(float blendShapeWeight)
         {
-            var firstFrame = _frames[0];
             var framesCount = _frames.Count;
             switch (framesCount)
             {
                 case 0:
-                    return new MutableBlendShapeState();
+                    throw new InvalidOperationException();
                 case 1:
-                    return Lerp1(firstFrame);
+                    return Lerp1(_frames[0]);
             }
+            var firstFrame = _frames[0];
             // multiple frames: inside range
             if (Mathf.Approximately(firstFrame.FrameWeight, blendShapeWeight))
             {
-                return new MutableBlendShapeState(firstFrame, 1f, firstFrame, 0f);
+                return new MutableBlendShapeState(firstFrame, 1f, null, 0f);
             }
             for (var i = 1; i < framesCount; i++)
             {
                 var frame2 = _frames[i];
                 if (Mathf.Approximately(frame2.FrameWeight, blendShapeWeight))
                 {
-                    return new MutableBlendShapeState(frame2, 1f, frame2, 0f);
+                    return new MutableBlendShapeState(frame2, 1f, null, 0f);
                 }
                 if (frame2.FrameWeight > blendShapeWeight)
                 {
@@ -131,7 +134,7 @@ namespace Silksprite.AdLib.Mesh
             _weight2 = weight2;
         }
 
-        public IEnumerable<Vector3> DeltaVertices() => _weight2 == 0 ? _frame1.DeltaVertices : DeltaVerticesSlow();
+        public IEnumerable<Vector3> DeltaVertices() => _frame2 == null ? _frame1.DeltaVertices : DeltaVerticesSlow();
 
         IEnumerable<Vector3> DeltaVerticesSlow()
         {
@@ -140,7 +143,7 @@ namespace Silksprite.AdLib.Mesh
 
         internal Vector3 DeltaVertex(int i) => _frame1.DeltaVertices[i] * _weight1 + _frame2.DeltaVertices[i] * _weight2;
 
-        public IEnumerable<Vector3> DeltaNormals() => _weight2 == 0 ? _frame1.DeltaNormals : DeltaNormalsSlow();
+        public IEnumerable<Vector3> DeltaNormals() => _frame2 == null ? _frame1.DeltaNormals : DeltaNormalsSlow();
 
         IEnumerable<Vector3> DeltaNormalsSlow()
         {
@@ -148,7 +151,7 @@ namespace Silksprite.AdLib.Mesh
         }
         internal Vector3 DeltaNormal(int i) => _frame1.DeltaNormals[i] * _weight1 + _frame2.DeltaNormals[i] * _weight2;
 
-        public IEnumerable<Vector3> DeltaTangents() => _weight2 == 0 ? _frame1.DeltaTangents : DeltaTangentsSlow();
+        public IEnumerable<Vector3> DeltaTangents() => _frame2 == null ? _frame1.DeltaTangents : DeltaTangentsSlow();
 
         IEnumerable<Vector3> DeltaTangentsSlow()
         {
