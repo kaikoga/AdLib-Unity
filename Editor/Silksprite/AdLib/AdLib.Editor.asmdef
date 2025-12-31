@@ -18,12 +18,12 @@
     "versionDefines": [
         {
             "name": "com.vrmc.univrm",
-            "expression": "",
+            "expression": "0.131.0",
             "define": "ADLIB_VRM0"
         },
         {
             "name": "com.vrmc.vrm",
-            "expression": "",
+            "expression": "0.131.0",
             "define": "ADLIB_VRM1"
         }
     ],
