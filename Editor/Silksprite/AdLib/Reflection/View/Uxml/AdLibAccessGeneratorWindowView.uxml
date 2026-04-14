@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xmlns:adref="AdLib.Reflection.View.UIElements"
+>
+    <engine:VisualElement style="flex-direction: row;">
+        <engine:VisualElement style="min-width: 200px; max-width: 200px; flex-grow: 0;">
+            <engine:VisualElement style="min-height: 200px; flex-shrink: 1; flex-grow: 1;">
+                <adref:AssemblyListView name="assemblyList" />
+            </engine:VisualElement>
+            <engine:VisualElement style="min-height: 200px; flex-shrink: 1; flex-grow: 1;">
+                <adref:NamespaceListView name="namespaceList" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement style="min-width: 200px; max-width: 200px; flex-grow: 0;">
+            <adref:TypeListView name="typeList" />
+        </engine:VisualElement>
+        <engine:VisualElement style="flex-grow: 1;">
+            <engine:TextField name="actualNamespaceField" label="Actual Namespace" />
+            <engine:TextField name="actualClassNameField" label="Actual Class Name" />
+            <editor:ObjectField name="sourceCodeField" type="UnityEditor.MonoScript, UnityEditor.CoreModule" label="Source Code" />
+            <engine:TextField name="accessNamespaceField" label="Access Namespace" />
+            <engine:TextField name="accessClassNameField" label="Access Class Name" />
+            <engine:Box />
+            <engine:TextField name="generatedCodeField" multiline="true" style="min-height: 100px; flex-grow: 1; flex-shrink: 1;" />
+            <engine:Button name="writeButton" text="Write" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

@@ -1,0 +1,17 @@
+{
+    "name": "AdLib.Reflection.Editor",
+    "rootNamespace": "AdLib.Reflection",
+    "references": [
+    "GUID:728d9b2eec6e4661897b68e778c69520"],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": ["UNITY_2022_3_OR_NEWER"],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
