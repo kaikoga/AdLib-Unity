@@ -22,11 +22,11 @@ namespace AdLib.Reflection.View.Windows
 
         AdLibAccessGeneratorWindowView? _view;
         readonly List<Assembly> _assemblyList = new List<Assembly>();
-        readonly List<string> _namespaceList = new List<string>();
+        readonly List<string?> _namespaceList = new List<string?>();
         readonly List<Type> _typeList = new List<Type>();
 
         Assembly[] _currentAssemblies = Array.Empty<Assembly>();
-        string[] _currentNamespaces = Array.Empty<string>();
+        string?[] _currentNamespaces = Array.Empty<string?>();
         Type[] _currentTypes = Array.Empty<Type>();
 
         void CreateGUI()
@@ -39,8 +39,9 @@ namespace AdLib.Reflection.View.Windows
             _view.AssemblyList.ItemsChosen += OnAssemblyChosen; 
             _view.NamespaceList.ItemsChosen += OnNamespaceChosen; 
             _view.TypeList.ItemsChosen += OnTypeChosen; 
-            _view.WriteButton.clicked += OnWriteButtonClicked; 
+            _view.WriteButton.clicked += OnWriteButtonClicked;
 
+            _assemblyList.Clear();
             _assemblyList.AddRange(AppDomain.CurrentDomain.GetAssemblies().OrderBy(assembly => assembly.GetName().Name));
             _view.AssemblyList.Draw(_assemblyList);
         }
@@ -57,7 +58,7 @@ namespace AdLib.Reflection.View.Windows
             _view?.NamespaceList.Draw(_namespaceList);
         }
 
-        void OnNamespaceChosen(IEnumerable<string> namespaces)
+        void OnNamespaceChosen(IEnumerable<string?> namespaces)
         {
             _currentNamespaces = namespaces.ToArray();
             _typeList.Clear();
@@ -73,7 +74,7 @@ namespace AdLib.Reflection.View.Windows
             _currentTypes = types.ToArray();
             var type = _currentTypes.First();
             _view?.ActualNamespaceField.SetValueWithoutNotify(type.Namespace);
-            _view?.ActualClassNameField.SetValueWithoutNotify(type.GetNestedTypeName().Replace(".", "Class+"));
+            _view?.ActualClassNameField.SetValueWithoutNotify(type.GetNestedTypeName());
             GuessSourceCode();
             RefreshGeneratedCodeField();
         }
@@ -82,17 +83,24 @@ namespace AdLib.Reflection.View.Windows
         void GuessSourceCode()
         {
             var type = _currentTypes.First();
-            var attributeString = $@"ReflectionAccess(""{type.FullName}"", ""{type.Namespace}"")";
-            var sourceCode = AssetDatabase.FindAssets($"t:MonoScript {type.Name}Access")
+            var guessedAccessFileName = $"{type.GetNestedTypeName()}Access".Replace(".", "Class.");
+            var attributeString = $@"ReflectionAccess(""{type.GetNestedTypeName()}"", ""{type.Assembly.GetName().Name}"")";
+            var sourceCode = AssetDatabase.FindAssets($"t:MonoScript {guessedAccessFileName}")
                 .Concat(AssetDatabase.FindAssets("t:MonoScript"))
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Select(AssetDatabase.LoadAssetAtPath<MonoScript>)
-                .FirstOrDefault(script => script.text.Contains(attributeString));
+                .FirstOrDefault(script => script.text.Contains(attributeString) || script.name == guessedAccessFileName);
             _view?.SourceCodeField.SetValueWithoutNotify(sourceCode);
-            var actualNs = sourceCode != null ? NamespaceDefinitionInSourceCode.Match(sourceCode.text).Groups[1].Value : string.Empty;
-            var actualName = sourceCode?.name.Replace(".", "+") ?? $"{_view?.ActualClassNameField.value}Access".Replace("+", "Class+");
-            _view?.AccessNamespaceField.SetValueWithoutNotify(actualNs);
-            _view?.AccessClassNameField.SetValueWithoutNotify(actualName);
+            if (sourceCode != null)
+            {
+                var actualNs = NamespaceDefinitionInSourceCode.Match(sourceCode.text).Groups[1].Value;
+                _view?.AccessNamespaceField.SetValueWithoutNotify(actualNs);
+                _view?.AccessClassNameField.SetValueWithoutNotify(sourceCode.name.Replace(".", "+"));
+            }
+            else
+            {
+                _view?.AccessClassNameField.SetValueWithoutNotify(guessedAccessFileName.Replace(".", "+"));
+            }
             RefreshGeneratedCodeField();
         }
         

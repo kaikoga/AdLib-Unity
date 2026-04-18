@@ -73,24 +73,24 @@ namespace AdLib.Reflection.Generator
         {
             if (_baseObjectType != null)
             {
-                sb.AppendLine($"public class {AccessClassName} : ObjectAccessBase<{_baseObjectType.GetPrettyTypeName()}>");
+                sb.AppendLine($"public class {accessClassIdent} : ObjectAccessBase<{_baseObjectType.GetPrettyTypeName()}>");
             }
             else if (_baseAccessClass != null)
             {
-                sb.AppendLine($"public class {AccessClassName} : {_baseAccessClass.GetPrettyTypeName()}");
+                sb.AppendLine($"public class {accessClassIdent} : {_baseAccessClass.GetPrettyTypeName()}");
             }
             else
             {
-                sb.AppendLine($"public class {AccessClassName} : ObjectAccessBase<object>");
+                sb.AppendLine($"public class {accessClassIdent} : ObjectAccessBase<object>");
             }
             sb.AppendLine("{");
             using (sb.Indent())
             {
                 GenerateCachedAndActualType(sb);
                 sb.AppendLine("");
-                sb.AppendLine($"public {AccessClassName}() : base(CachedType.CreateInstance()) {{ }}");
-                sb.AppendLine($"public {AccessClassName}(object baseObject) : base(baseObject) {{ }}");
-                sb.AppendLine($"public static {AccessClassName}? Nullable(object? baseObject) => baseObject != null ? new {AccessClassName}(baseObject) : null;");
+                sb.AppendLine($"public {accessClassIdent}() : base(CachedType.CreateInstance()) {{ }}");
+                sb.AppendLine($"public {accessClassIdent}(object baseObject) : base(baseObject) {{ }}");
+                sb.AppendLine($"public static {accessClassIdent}? Nullable(object? baseObject) => baseObject != null ? new {accessClassIdent}(baseObject) : null;");
                 foreach (var member in ActualType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
                 {
                     sb.AppendLine("");

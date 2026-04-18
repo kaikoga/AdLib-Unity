@@ -8,8 +8,8 @@ namespace AdLib.Reflection.View.UIElements
     class NamespaceListView : VisualElement
     {
         readonly ListView _listView;
-        readonly List<string> _itemsSource = new List<string>();
-        public event Action<IEnumerable<string>>? ItemsChosen;
+        readonly List<string?> _itemsSource = new List<string?>();
+        public event Action<IEnumerable<string?>>? ItemsChosen;
 
         public NamespaceListView()
         {
@@ -24,11 +24,11 @@ namespace AdLib.Reflection.View.UIElements
                 var view = (NamespaceView)visualElement;
                 view.Draw(_itemsSource[index]);
             };
-            _listView.itemsChosen += selection => ItemsChosen?.Invoke(selection.OfType<string>());
+            _listView.itemsChosen += selection => ItemsChosen?.Invoke(selection.Cast<string>());
             hierarchy.Add(_listView);
         }
 
-        public void Draw(List<string> itemsSource)
+        public void Draw(List<string?> itemsSource)
         {
             _itemsSource.Clear();
             _itemsSource.AddRange(itemsSource);
@@ -42,6 +42,6 @@ namespace AdLib.Reflection.View.UIElements
 
     class NamespaceView : Label
     {
-        public void Draw(string ns) => text = ns;
+        public void Draw(string? ns) => text = ns ?? "<null>";
     } 
 }

@@ -24,7 +24,8 @@ namespace AdLib.Reflection.Extensions
                 var genericArgs = string.Join(",", type.GetGenericArguments().Select(arg => arg.GetNestedTypeName()));
                 return $"{genericDef}<{genericArgs}>";
             }
-            return type.DeclaringType is { } decl ? $"{decl.GetNestedTypeName()}.{type.Name}" : type.Name;
+            var typeIdent = type.Name.Split("`")[0];
+            return type.DeclaringType is { } decl ? $"{decl.GetNestedTypeName()}.{typeIdent}" : typeIdent;
         }
 
         public static string GetPrettyTypeName(this Type type)
