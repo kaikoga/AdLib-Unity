@@ -15,7 +15,7 @@ namespace Silksprite.AdLib.Reflection.Extensions
                 return false;
             }
             access = component.GetComponents<Component>()
-                .Where(c => c.GetType() == type)
+                .Where(c => c != null && c.GetType() == type)
                 .Select(toAccess)
                 .FirstOrDefault();
             return access != null;
