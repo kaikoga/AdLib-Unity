@@ -7,7 +7,7 @@ using Silksprite.AdLib.Reflection.Base;
 using Silksprite.AdLib.Reflection.Extensions;
 
 [ReflectionAccess("DynamicBoneCollider", "Assembly-CSharp")]
-public class DynamicBoneColliderAccess : ObjectAccessBase<object>
+public class DynamicBoneColliderAccess : DynamicBoneColliderBaseAccess
 {
     static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBoneCollider");
     public static Type ActualType => CachedType.ActualType;

@@ -71,13 +71,13 @@ namespace AdLib.Reflection.Generator
 
         protected override void GenerateType(SourceCodeBuilder sb, string accessClassIdent)
         {
-            if (_baseObjectType != null)
-            {
-                sb.AppendLine($"public class {accessClassIdent} : ObjectAccessBase<{_baseObjectType.GetPrettyTypeName()}>");
-            }
-            else if (_baseAccessClass != null)
+            if (_baseAccessClass != null)
             {
                 sb.AppendLine($"public class {accessClassIdent} : {_baseAccessClass.GetPrettyTypeName()}");
+            }
+            else if (_baseObjectType != null)
+            {
+                sb.AppendLine($"public class {accessClassIdent} : ObjectAccessBase<{_baseObjectType.GetPrettyTypeName()}>");
             }
             else
             {
