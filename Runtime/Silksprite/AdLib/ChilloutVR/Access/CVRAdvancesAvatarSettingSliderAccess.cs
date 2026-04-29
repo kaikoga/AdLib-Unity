@@ -15,7 +15,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
     public class CVRAdvancesAvatarSettingSliderAccess : CVRAdvancesAvatarSettingBaseAccess
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Scripts.CVRAdvancesAvatarSettingSlider");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -26,43 +25,43 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public float defaultValue
         {
-            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(defaultValue));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(defaultValue), value);
+            get => (float)CachedType.GetFieldValueOf(BaseObject, nameof(defaultValue));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(defaultValue), value);
         }
         
         // AccessList Field
         public List<CVRAdvancedSettingsTargetEntryMaterialPropertyAccess?>? materialPropertyTargets
         {
-            get => CachedType___.GetFieldValueOf(BaseObject, nameof(materialPropertyTargets)).ToAccessList(CVRAdvancedSettingsTargetEntryMaterialPropertyAccess.Nullable);
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(materialPropertyTargets), value?.ToDynamicList(CVRAdvancedSettingsTargetEntryMaterialPropertyAccess.ActualType));
+            get => CachedType.GetFieldValueOf(BaseObject, nameof(materialPropertyTargets)).ToAccessList(CVRAdvancedSettingsTargetEntryMaterialPropertyAccess.Nullable);
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(materialPropertyTargets), value?.ToDynamicList(CVRAdvancedSettingsTargetEntryMaterialPropertyAccess.ActualType));
         }
         
         // Direct Field
         public ReorderableList? reorderableList
         {
-            get => (ReorderableList)CachedType___.GetFieldValueOf(BaseObject, nameof(reorderableList));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(reorderableList), value);
+            get => (ReorderableList)CachedType.GetFieldValueOf(BaseObject, nameof(reorderableList));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(reorderableList), value);
         }
         
         // Direct Field
         public bool useAnimationClip
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(useAnimationClip));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(useAnimationClip), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(useAnimationClip));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(useAnimationClip), value);
         }
         
         // Direct Field
         public AnimationClip? minAnimationClip
         {
-            get => (AnimationClip)CachedType___.GetFieldValueOf(BaseObject, nameof(minAnimationClip));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(minAnimationClip), value);
+            get => (AnimationClip)CachedType.GetFieldValueOf(BaseObject, nameof(minAnimationClip));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(minAnimationClip), value);
         }
         
         // Direct Field
         public AnimationClip? maxAnimationClip
         {
-            get => (AnimationClip)CachedType___.GetFieldValueOf(BaseObject, nameof(maxAnimationClip));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(maxAnimationClip), value);
+            get => (AnimationClip)CachedType.GetFieldValueOf(BaseObject, nameof(maxAnimationClip));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(maxAnimationClip), value);
         }
     }
 }

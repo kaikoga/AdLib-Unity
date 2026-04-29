@@ -15,7 +15,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public class CVRAvatarEyeBlinkModeAccess : EnumAccessBase<CVRAvatarEyeBlinkModeAccess.EnumValues>
         {
             static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Components.CVRAvatar+CVRAvatarEyeBlinkMode");
-            static CachedType CachedType___ => CachedType;
             public static Type ActualType => CachedType.ActualType;
             public static bool IsImplemented => CachedType.IsImplemented;
             

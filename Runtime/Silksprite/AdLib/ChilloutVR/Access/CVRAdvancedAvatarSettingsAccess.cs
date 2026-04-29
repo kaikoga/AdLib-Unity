@@ -15,7 +15,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
     public class CVRAdvancedAvatarSettingsAccess : ObjectAccessBase<object>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Scripts.CVRAdvancedAvatarSettings");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -26,43 +25,43 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // AccessList Field
         public List<CVRAdvancedSettingsEntryAccess?>? settings
         {
-            get => CachedType___.GetFieldValueOf(BaseObject, nameof(settings)).ToAccessList(CVRAdvancedSettingsEntryAccess.Nullable);
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(settings), value?.ToDynamicList(CVRAdvancedSettingsEntryAccess.ActualType));
+            get => CachedType.GetFieldValueOf(BaseObject, nameof(settings)).ToAccessList(CVRAdvancedSettingsEntryAccess.Nullable);
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(settings), value?.ToDynamicList(CVRAdvancedSettingsEntryAccess.ActualType));
         }
         
         // Direct Field
         public bool initialized
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(initialized));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(initialized), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(initialized));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(initialized), value);
         }
         
         // Direct Field
         public RuntimeAnimatorController? baseController
         {
-            get => (RuntimeAnimatorController)CachedType___.GetFieldValueOf(BaseObject, nameof(baseController));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(baseController), value);
+            get => (RuntimeAnimatorController)CachedType.GetFieldValueOf(BaseObject, nameof(baseController));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(baseController), value);
         }
         
         // Direct Field
         public RuntimeAnimatorController? baseOverrideController
         {
-            get => (RuntimeAnimatorController)CachedType___.GetFieldValueOf(BaseObject, nameof(baseOverrideController));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(baseOverrideController), value);
+            get => (RuntimeAnimatorController)CachedType.GetFieldValueOf(BaseObject, nameof(baseOverrideController));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(baseOverrideController), value);
         }
         
         // Direct Field
         public AnimatorController? animator
         {
-            get => (AnimatorController)CachedType___.GetFieldValueOf(BaseObject, nameof(animator));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(animator), value);
+            get => (AnimatorController)CachedType.GetFieldValueOf(BaseObject, nameof(animator));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(animator), value);
         }
         
         // Direct Field
         public AnimatorOverrideController? overrides
         {
-            get => (AnimatorOverrideController)CachedType___.GetFieldValueOf(BaseObject, nameof(overrides));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(overrides), value);
+            get => (AnimatorOverrideController)CachedType.GetFieldValueOf(BaseObject, nameof(overrides));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(overrides), value);
         }
     }
 }

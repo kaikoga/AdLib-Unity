@@ -12,7 +12,6 @@ using UnityEngine;
 public class DynamicBoneColliderBaseAccess : ObjectAccessBase<MonoBehaviour>
 {
     static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBoneColliderBase");
-    static CachedType CachedType___ => CachedType;
     public static Type ActualType => CachedType.ActualType;
     public static bool IsImplemented => CachedType.IsImplemented;
     
@@ -23,21 +22,21 @@ public class DynamicBoneColliderBaseAccess : ObjectAccessBase<MonoBehaviour>
     // EnumAccess Field
     public DynamicBoneColliderBaseClass.DirectionAccess.EnumValues m_Direction
     {
-        get => DynamicBoneColliderBaseClass.DirectionAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(m_Direction)));
-        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Direction), DynamicBoneColliderBaseClass.DirectionAccess.Shared.ToActual(value));
+        get => DynamicBoneColliderBaseClass.DirectionAccess.Shared.ToAccess(CachedType.GetFieldValueOf(BaseObject, nameof(m_Direction)));
+        set => CachedType.SetFieldValueOf(BaseObject, nameof(m_Direction), DynamicBoneColliderBaseClass.DirectionAccess.Shared.ToActual(value));
     }
     
     // Direct Field
     public Vector3 m_Center
     {
-        get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Center));
-        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Center), value);
+        get => (Vector3)CachedType.GetFieldValueOf(BaseObject, nameof(m_Center));
+        set => CachedType.SetFieldValueOf(BaseObject, nameof(m_Center), value);
     }
     
     // EnumAccess Field
     public DynamicBoneColliderBaseClass.BoundAccess.EnumValues m_Bound
     {
-        get => DynamicBoneColliderBaseClass.BoundAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(m_Bound)));
-        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Bound), DynamicBoneColliderBaseClass.BoundAccess.Shared.ToActual(value));
+        get => DynamicBoneColliderBaseClass.BoundAccess.Shared.ToAccess(CachedType.GetFieldValueOf(BaseObject, nameof(m_Bound)));
+        set => CachedType.SetFieldValueOf(BaseObject, nameof(m_Bound), DynamicBoneColliderBaseClass.BoundAccess.Shared.ToActual(value));
     }
 }

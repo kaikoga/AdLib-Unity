@@ -13,7 +13,6 @@ public static partial class DynamicBoneColliderBaseClass
     public class DirectionAccess : EnumAccessBase<DirectionAccess.EnumValues>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBoneColliderBase+Direction");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         

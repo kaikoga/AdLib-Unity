@@ -11,7 +11,6 @@ using Silksprite.AdLib.Reflection.Extensions;
 public class DynamicBonePlaneColliderAccess : DynamicBoneColliderBaseAccess
 {
     static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBonePlaneCollider");
-    static CachedType CachedType___ => CachedType;
     public static Type ActualType => CachedType.ActualType;
     public static bool IsImplemented => CachedType.IsImplemented;
     

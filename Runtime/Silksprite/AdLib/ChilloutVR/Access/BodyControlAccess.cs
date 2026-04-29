@@ -14,7 +14,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
     public class BodyControlAccess : ObjectAccessBase<StateMachineBehaviour>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Components.BodyControl");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -25,15 +24,15 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // AccessList Field
         public List<BodyControlTaskAccess?>? EnterTasks
         {
-            get => CachedType___.GetFieldValueOf(BaseObject, nameof(EnterTasks)).ToAccessList(BodyControlTaskAccess.Nullable);
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(EnterTasks), value?.ToDynamicList(BodyControlTaskAccess.ActualType));
+            get => CachedType.GetFieldValueOf(BaseObject, nameof(EnterTasks)).ToAccessList(BodyControlTaskAccess.Nullable);
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(EnterTasks), value?.ToDynamicList(BodyControlTaskAccess.ActualType));
         }
         
         // AccessList Field
         public List<BodyControlTaskAccess?>? ExitTasks
         {
-            get => CachedType___.GetFieldValueOf(BaseObject, nameof(ExitTasks)).ToAccessList(BodyControlTaskAccess.Nullable);
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(ExitTasks), value?.ToDynamicList(BodyControlTaskAccess.ActualType));
+            get => CachedType.GetFieldValueOf(BaseObject, nameof(ExitTasks)).ToAccessList(BodyControlTaskAccess.Nullable);
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(ExitTasks), value?.ToDynamicList(BodyControlTaskAccess.ActualType));
         }
         
         // static UnityEvent<Animator,BodyControl> OnInitialized

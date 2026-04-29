@@ -13,7 +13,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
     public class CVRAdvancesAvatarSettingInputSingleAccess : CVRAdvancesAvatarSettingBaseAccess
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Scripts.CVRAdvancesAvatarSettingInputSingle");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -24,8 +23,8 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public float defaultValue
         {
-            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(defaultValue));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(defaultValue), value);
+            get => (float)CachedType.GetFieldValueOf(BaseObject, nameof(defaultValue));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(defaultValue), value);
         }
     }
 }

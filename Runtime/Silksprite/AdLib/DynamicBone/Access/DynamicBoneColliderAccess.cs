@@ -11,7 +11,6 @@ using Silksprite.AdLib.Reflection.Extensions;
 public class DynamicBoneColliderAccess : DynamicBoneColliderBaseAccess
 {
     static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBoneCollider");
-    static CachedType CachedType___ => CachedType;
     public static Type ActualType => CachedType.ActualType;
     public static bool IsImplemented => CachedType.IsImplemented;
     
@@ -22,14 +21,14 @@ public class DynamicBoneColliderAccess : DynamicBoneColliderBaseAccess
     // Direct Field
     public float m_Radius
     {
-        get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Radius));
-        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Radius), value);
+        get => (float)CachedType.GetFieldValueOf(BaseObject, nameof(m_Radius));
+        set => CachedType.SetFieldValueOf(BaseObject, nameof(m_Radius), value);
     }
     
     // Direct Field
     public float m_Height
     {
-        get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Height));
-        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Height), value);
+        get => (float)CachedType.GetFieldValueOf(BaseObject, nameof(m_Height));
+        set => CachedType.SetFieldValueOf(BaseObject, nameof(m_Height), value);
     }
 }

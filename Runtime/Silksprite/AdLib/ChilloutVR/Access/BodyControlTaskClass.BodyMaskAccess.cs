@@ -15,7 +15,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public class BodyMaskAccess : EnumAccessBase<BodyMaskAccess.EnumValues>
         {
             static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Components.BodyControlTask+BodyMask");
-            static CachedType CachedType___ => CachedType;
             public static Type ActualType => CachedType.ActualType;
             public static bool IsImplemented => CachedType.IsImplemented;
             

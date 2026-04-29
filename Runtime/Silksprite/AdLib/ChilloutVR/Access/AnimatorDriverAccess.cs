@@ -14,7 +14,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
     public class AnimatorDriverAccess : ObjectAccessBase<StateMachineBehaviour>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Components.AnimatorDriver");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -25,22 +24,22 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // AccessList Field
         public List<AnimatorDriverTaskAccess?>? EnterTasks
         {
-            get => CachedType___.GetFieldValueOf(BaseObject, nameof(EnterTasks)).ToAccessList(AnimatorDriverTaskAccess.Nullable);
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(EnterTasks), value?.ToDynamicList(AnimatorDriverTaskAccess.ActualType));
+            get => CachedType.GetFieldValueOf(BaseObject, nameof(EnterTasks)).ToAccessList(AnimatorDriverTaskAccess.Nullable);
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(EnterTasks), value?.ToDynamicList(AnimatorDriverTaskAccess.ActualType));
         }
         
         // AccessList Field
         public List<AnimatorDriverTaskAccess?>? ExitTasks
         {
-            get => CachedType___.GetFieldValueOf(BaseObject, nameof(ExitTasks)).ToAccessList(AnimatorDriverTaskAccess.Nullable);
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(ExitTasks), value?.ToDynamicList(AnimatorDriverTaskAccess.ActualType));
+            get => CachedType.GetFieldValueOf(BaseObject, nameof(ExitTasks)).ToAccessList(AnimatorDriverTaskAccess.Nullable);
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(ExitTasks), value?.ToDynamicList(AnimatorDriverTaskAccess.ActualType));
         }
         
         // Direct Field
         public bool localOnly
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(localOnly));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(localOnly), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(localOnly));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(localOnly), value);
         }
     }
 }

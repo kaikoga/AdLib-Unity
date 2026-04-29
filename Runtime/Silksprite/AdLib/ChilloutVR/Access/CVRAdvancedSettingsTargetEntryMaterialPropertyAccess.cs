@@ -14,7 +14,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
     public class CVRAdvancedSettingsTargetEntryMaterialPropertyAccess : ObjectAccessBase<object>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Scripts.CVRAdvancedSettingsTargetEntryMaterialProperty");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -25,50 +24,50 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public float minValue
         {
-            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(minValue));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(minValue), value);
+            get => (float)CachedType.GetFieldValueOf(BaseObject, nameof(minValue));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(minValue), value);
         }
         
         // Direct Field
         public float maxValue
         {
-            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(maxValue));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(maxValue), value);
+            get => (float)CachedType.GetFieldValueOf(BaseObject, nameof(maxValue));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(maxValue), value);
         }
         
         // Direct Field
         public GameObject? gameObject
         {
-            get => (GameObject)CachedType___.GetFieldValueOf(BaseObject, nameof(gameObject));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(gameObject), value);
+            get => (GameObject)CachedType.GetFieldValueOf(BaseObject, nameof(gameObject));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(gameObject), value);
         }
         
         // Direct Field
         public string? treePath
         {
-            get => (string)CachedType___.GetFieldValueOf(BaseObject, nameof(treePath));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(treePath), value);
+            get => (string)CachedType.GetFieldValueOf(BaseObject, nameof(treePath));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(treePath), value);
         }
         
         // Direct Field
         public Type? propertyType
         {
-            get => (Type)CachedType___.GetFieldValueOf(BaseObject, nameof(propertyType));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(propertyType), value);
+            get => (Type)CachedType.GetFieldValueOf(BaseObject, nameof(propertyType));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(propertyType), value);
         }
         
         // Direct Field
         public string? propertyTypeIdentifier
         {
-            get => (string)CachedType___.GetFieldValueOf(BaseObject, nameof(propertyTypeIdentifier));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(propertyTypeIdentifier), value);
+            get => (string)CachedType.GetFieldValueOf(BaseObject, nameof(propertyTypeIdentifier));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(propertyTypeIdentifier), value);
         }
         
         // Direct Field
         public string? propertyName
         {
-            get => (string)CachedType___.GetFieldValueOf(BaseObject, nameof(propertyName));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(propertyName), value);
+            get => (string)CachedType.GetFieldValueOf(BaseObject, nameof(propertyName));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(propertyName), value);
         }
     }
 }

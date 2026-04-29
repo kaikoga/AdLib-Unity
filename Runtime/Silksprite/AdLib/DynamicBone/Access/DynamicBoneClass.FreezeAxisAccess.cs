@@ -13,7 +13,6 @@ public static partial class DynamicBoneClass
     public class FreezeAxisAccess : EnumAccessBase<FreezeAxisAccess.EnumValues>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBone+FreezeAxis");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         

@@ -14,7 +14,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
     public class CVRAdvancesAvatarSettingJoystick2DAccess : CVRAdvancesAvatarSettingBaseAccess
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Scripts.CVRAdvancesAvatarSettingJoystick2D");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -25,22 +24,22 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public Vector2 defaultValue
         {
-            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(defaultValue));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(defaultValue), value);
+            get => (Vector2)CachedType.GetFieldValueOf(BaseObject, nameof(defaultValue));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(defaultValue), value);
         }
         
         // Direct Field
         public Vector2 rangeMin
         {
-            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(rangeMin));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(rangeMin), value);
+            get => (Vector2)CachedType.GetFieldValueOf(BaseObject, nameof(rangeMin));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(rangeMin), value);
         }
         
         // Direct Field
         public Vector2 rangeMax
         {
-            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(rangeMax));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(rangeMax), value);
+            get => (Vector2)CachedType.GetFieldValueOf(BaseObject, nameof(rangeMax));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(rangeMax), value);
         }
     }
 }
