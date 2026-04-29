@@ -1,8 +1,11 @@
 {
-    "name": "AdLib.Reflection.Editor",
-    "rootNamespace": "AdLib.Reflection",
+    "name": "AdLib.UnitTests",
+    "rootNamespace": "Silksprite.AdLib",
     "references": [
-        "AdLib.Reflection"
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "AdLib",
+        "AdLib.Editor"
     ],
     "includePlatforms": [
         "Editor"
@@ -10,9 +13,10 @@
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
-    "precompiledReferences": [],
+    "precompiledReferences": [
+    ],
     "autoReferenced": false,
-    "defineConstraints": ["UNITY_2022_3_OR_NEWER"],
+    "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
 }

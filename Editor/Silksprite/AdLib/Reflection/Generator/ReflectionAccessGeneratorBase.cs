@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Silksprite.AdLib.Reflection;
 
 namespace AdLib.Reflection.Generator
 {
@@ -101,7 +102,14 @@ namespace AdLib.Reflection.Generator
 
         protected void GenerateCachedAndActualType(SourceCodeBuilder sb)
         {
-            sb.AppendLine($"static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType(\"{ActualType.FullName}\");");
+            var asmdefName = ActualType.Assembly.GetName().Name;
+            var getTypeMethod = asmdefName switch
+            {
+                "Assembly-CSharp-Editor" => nameof(CachedAppDomain.GetEditorType),
+                "Assembly-CSharp" => nameof(CachedAppDomain.GetRuntimeType),
+                _ => throw new NotSupportedException(asmdefName)
+            };
+            sb.AppendLine($"static readonly CachedType CachedType = CachedAppDomain.Instance.{getTypeMethod}(\"{ActualType.FullName}\");");
             sb.AppendLine("public static Type ActualType => CachedType.ActualType;");
             sb.AppendLine("public static bool IsImplemented => CachedType.IsImplemented;");
         }

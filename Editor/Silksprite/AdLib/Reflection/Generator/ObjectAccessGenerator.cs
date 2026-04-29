@@ -33,29 +33,39 @@ namespace AdLib.Reflection.Generator
 
         protected override IEnumerable<string> CollectUsings()
         {
+            IEnumerable<Type> CollectNestedTypes(Type type)
+            {
+                yield return type;
+                if (type.IsConstructedGenericType)
+                {
+                    foreach (var arg in type.GetGenericArguments().SelectMany(CollectNestedTypes))
+                    {
+                        yield return arg;
+                    }
+                }
+            }
             IEnumerable<Type> CollectTypes()
             {
-                foreach (var type in ActualType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly))
+                if (_baseAccessClass != null)
                 {
-                    yield return type.FieldType;
+                    yield return _baseAccessClass;
                 }
-                foreach (var type in ActualType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly))
+                if (_baseObjectType != null)
                 {
-                    yield return type.PropertyType;
+                    yield return _baseObjectType;
                 }
-                
+                foreach (var field in ActualType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly))
+                {
+                    yield return field.FieldType;
+                }
+                foreach (var property in ActualType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly))
+                {
+                    yield return property.PropertyType;
+                }
             }
             IEnumerable<string?> DoCollectUsings()
             {
-                if (_baseAccessClass?.Namespace != null)
-                {
-                    yield return _baseAccessClass.Namespace;
-                }
-                if (_baseObjectType?.Namespace != null)
-                {
-                    yield return _baseObjectType.Namespace;
-                }
-                foreach (var type in CollectTypes())
+                foreach (var type in CollectTypes().SelectMany(CollectNestedTypes))
                 {
                     if (TryGuessAccessValueType(type!, out var accessNs , out _, out _, out _))
                     {
@@ -175,18 +185,32 @@ namespace AdLib.Reflection.Generator
                         switch (memberTypes)
                         {
                             case MemberTypes.Field:
-                                sb.AppendLine($"get => CachedType.GetFieldValue(nameof({fieldName}));");
+                                sb.AppendLine($"get => ({actualMemberType.GetPrettyTypeName()})CachedType.GetFieldValue(nameof({fieldName}));");
                                 sb.AppendLine($"set => CachedType.SetFieldValue(nameof({fieldName}), value);");
                                 break;
                             case MemberTypes.Property:
-                                sb.AppendLine("get;");
-                                sb.AppendLine("set;");
+                                sb.AppendLine($"get => ({actualMemberType.GetPrettyTypeName()})CachedType.GetPropertyValue(nameof({fieldName}));");
+                                sb.AppendLine($"set => CachedType.SetPropertyValue(nameof({fieldName}), value);");
                                 break;
                             default:
                                 throw new ArgumentException();
                         }
                         break;
                     case AccessImplKind.Access:
+                        switch (memberTypes)
+                        {
+                            case MemberTypes.Field:
+                                sb.AppendLine($"get => {accessClassName}.Nullable(CachedType.GetFieldValue(nameof({fieldName})));");
+                                sb.AppendLine($"set => CachedType.SetFieldValue(nameof({fieldName}), value?.BaseObject);");
+                                break;
+                            case MemberTypes.Property:
+                                sb.AppendLine($"get => {accessClassName}.Nullable(CachedType.GetPropertyValue(nameof({fieldName})));");
+                                sb.AppendLine($"set => CachedType.SetPropertyValue(nameof({fieldName}), value?.BaseObject);");
+                                break;
+                            default:
+                                throw new ArgumentException();
+                        }
+                        break;
                     case AccessImplKind.EnumAccess:
                     case AccessImplKind.AccessList:
                         sb.AppendLine("get;");
@@ -216,7 +240,7 @@ namespace AdLib.Reflection.Generator
                     {
                         accessClassNamespace = actualMemberType.Namespace;
                         accessClassName = actualMemberType.GetPrettyTypeName();
-                        accessValueTypeName = actualMemberType.GetPrettyTypeName();
+                        accessValueTypeName = actualMemberType.GetNullGuardedPrettyTypeName();
                         accessImplKind = AccessImplKind.Direct;
                         return true;
                     }
@@ -225,7 +249,7 @@ namespace AdLib.Reflection.Generator
                     {
                         accessClassNamespace = maybeElementAccessInfo.Access.Namespace;
                         accessClassName = maybeElementAccessInfo.Access.GetPrettyTypeName();
-                        accessValueTypeName = $"List<{maybeElementAccessInfo.ValueType.GetPrettyTypeName()}?>?";
+                        accessValueTypeName = typeof(List<>).MakeGenericType(maybeElementAccessInfo.ValueType).GetNullGuardedPrettyTypeName();
                         accessImplKind = typeof(Enum).IsAssignableFrom(maybeElementAccessInfo.ValueType) ? AccessImplKind.NotImplemented : AccessImplKind.AccessList;
                         return true;
                     }
@@ -238,7 +262,7 @@ namespace AdLib.Reflection.Generator
                 {
                     accessClassNamespace = actualMemberType.Namespace;
                     accessClassName = actualMemberType.GetPrettyTypeName();
-                    accessValueTypeName = actualMemberType.GetPrettyTypeName();
+                    accessValueTypeName = actualMemberType.GetNullGuardedPrettyTypeName();
                     accessImplKind = AccessImplKind.Direct;
                     return true;
                 }
@@ -247,30 +271,27 @@ namespace AdLib.Reflection.Generator
                 {
                     accessClassNamespace = maybeElementAccessInfo.Access.Namespace;
                     accessClassName = maybeElementAccessInfo.Access.GetPrettyTypeName();
-                    accessValueTypeName = $"{maybeElementAccessInfo.ValueType.GetPrettyTypeName()}?[]?";
+                    accessValueTypeName = maybeElementAccessInfo.ValueType.MakeArrayType().GetNullGuardedPrettyTypeName();
                     accessImplKind = AccessImplKind.NotImplemented;
                     return true;
                 }
             }
-            else
+            if (actualMemberType.Assembly != ActualType.Assembly)
             {
-                if (actualMemberType.Assembly != ActualType.Assembly)
-                {
-                    accessClassNamespace = actualMemberType.Namespace;
-                    accessClassName = actualMemberType.GetPrettyTypeName();
-                    accessValueTypeName = actualMemberType.GetPrettyTypeName();
-                    accessImplKind = AccessImplKind.Direct;
-                    return true;
-                }
-                var maybeAccessInfo = _accessTypesCache.FirstOrDefault(access => access.Actual == actualMemberType);
-                if (maybeAccessInfo != null)
-                {
-                    accessClassNamespace = maybeAccessInfo.Access.Namespace;
-                    accessClassName = maybeAccessInfo.Access.GetPrettyTypeName();
-                    accessValueTypeName = maybeAccessInfo.ValueType.GetPrettyTypeName();
-                    accessImplKind = typeof(Enum).IsAssignableFrom(maybeAccessInfo.ValueType) ? AccessImplKind.EnumAccess : AccessImplKind.Access;
-                    return true;
-                }
+                accessClassNamespace = actualMemberType.Namespace;
+                accessClassName = actualMemberType.GetPrettyTypeName();
+                accessValueTypeName = actualMemberType.GetNullGuardedPrettyTypeName();
+                accessImplKind = AccessImplKind.Direct;
+                return true;
+            }
+            var maybeAccessInfo = _accessTypesCache.FirstOrDefault(access => access.Actual == actualMemberType);
+            if (maybeAccessInfo != null)
+            {
+                accessClassNamespace = maybeAccessInfo.Access.Namespace;
+                accessClassName = maybeAccessInfo.Access.GetPrettyTypeName();
+                accessValueTypeName = maybeAccessInfo.ValueType.GetNullGuardedPrettyTypeName();
+                accessImplKind = typeof(Enum).IsAssignableFrom(maybeAccessInfo.ValueType) ? AccessImplKind.EnumAccess : AccessImplKind.Access;
+                return true;
             }
             accessClassNamespace = null;
             accessClassName = null;

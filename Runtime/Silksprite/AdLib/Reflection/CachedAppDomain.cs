@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -38,35 +37,5 @@ namespace Silksprite.AdLib.Reflection
         public CachedType GetEditorType(string typeName) => GetType("Assembly-CSharp-Editor", typeName);
     }
 
-    [PublicAPI]
-    public class CachedAssembly
-    {
-        public readonly Assembly Assembly;
-
-        Dictionary<string, CachedType>? _typeCache;
-        Dictionary<string, CachedType> TypeCache => _typeCache ??= Assembly.GetTypes()
-            .ToDictionary(type => type.FullName, type => new CachedType(type));
-
-        public CachedAssembly(Assembly assembly) => Assembly = assembly;
-
-        public CachedType? GetType(string name) => TypeCache.GetValueOrDefault(name);
-    }
-    
     // maybe this can be just Type?
-    [PublicAPI]
-    public class CachedType
-    {
-        public static readonly CachedType NotFound = new CachedType(null!); 
-
-        readonly Type? _actualType;
-        public Type ActualType => _actualType!;
-        public bool IsImplemented => _actualType != null;
-
-        public CachedType(Type type) => _actualType = type;
-
-        public object CreateInstance() => Activator.CreateInstance(ActualType);
-
-        public dynamic? GetFieldValue(string fieldName) => ActualType.GetField(fieldName).GetValue(null);
-        public void SetFieldValue(string fieldName, dynamic? value) => ActualType.GetField(fieldName).SetValue(null, value);
-    }
 }

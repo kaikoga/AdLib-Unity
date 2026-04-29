@@ -1,0 +1,23 @@
+{
+    "name": "AdLib.UnitTests.Editor",
+    "rootNamespace": "Silksprite.AdLib",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "AdLib",
+        "AdLib.Editor",
+        "AdLib.Reflection.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
