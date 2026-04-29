@@ -14,13 +14,13 @@ namespace Silksprite.AdLib.Reflection.Extensions
             return source is IEnumerable<object?> list ? list.Select(toAccess).ToList() : null;
         }
 
-        public static dynamic ToDynamicList(this IEnumerable<ObjectAccessBase?> source, Type type)
+        public static object ToDynamicList(this IEnumerable<ObjectAccessBase?> source, Type type)
         {
             var listType = typeof(List<>).MakeGenericType(type);
             var list = (IList)Activator.CreateInstance(listType);
             foreach (var item in source)
             {
-                list.Add(item?.DynamicObject);
+                list.Add(item?.ActualObject);
             }
             return list;
         }

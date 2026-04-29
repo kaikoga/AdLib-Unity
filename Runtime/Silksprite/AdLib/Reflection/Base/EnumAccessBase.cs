@@ -19,24 +19,14 @@ namespace Silksprite.AdLib.Reflection.Base
             _cachedType = cachedType;
         }
 
-        public TAccess ToAccess(dynamic value)
+        public TAccess ToAccess(object value)
         {
-            return (TAccess)Enum.ToObject(typeof(TAccess), (int)(object)value);
+            return (TAccess)Enum.ToObject(typeof(TAccess), (int)value);
         }
 
-        public TAccess? ToAccessNullable(dynamic value)
+        public TAccess? ToAccessNullable(object? value)
         {
-            return value is { } val ? ToAccess(val) : null;
-        }
-
-        public dynamic ToActual(TAccess value)
-        {
-            return Enum.ToObject(_cachedType.ActualType, (int)(object)value);
-        }
-
-        public dynamic? ToActualNullable(TAccess? value)
-        {
-            return value is { } val ? ToActual(val) : null;
+            return value != null ? ToAccess(value) : default;
         }
 
         public object ToActual___(TAccess value)
@@ -46,7 +36,7 @@ namespace Silksprite.AdLib.Reflection.Base
 
         public object? ToActualNullable___(TAccess? value)
         {
-            return value is { } val ? ToActual(val) : null;
+            return value is { } val ? ToActual___(val) : null;
         }
     }
 }

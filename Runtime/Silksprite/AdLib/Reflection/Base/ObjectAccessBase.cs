@@ -7,9 +7,9 @@ namespace Silksprite.AdLib.Reflection.Base
     public abstract class ObjectAccessBase : ReflectionAccessBase
     {
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        dynamic _baseObject;
+        object _baseObject;
 
-        protected internal dynamic DynamicObject
+        protected internal object ActualObject
         {
             get => _baseObject;
             protected set => _baseObject = value;
@@ -21,7 +21,7 @@ namespace Silksprite.AdLib.Reflection.Base
     [PublicAPI]
     public abstract class ObjectAccessBase<T> : ObjectAccessBase
     {
-        public T BaseObject => (T)DynamicObject;
+        public T BaseObject => (T)ActualObject;
 
         protected ObjectAccessBase(object baseObject) : base(baseObject) { }
     }
