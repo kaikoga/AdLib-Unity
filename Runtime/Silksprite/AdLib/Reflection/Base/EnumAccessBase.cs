@@ -38,5 +38,15 @@ namespace Silksprite.AdLib.Reflection.Base
         {
             return value is { } val ? ToActual(val) : null;
         }
+
+        public object ToActual___(TAccess value)
+        {
+            return Enum.ToObject(_cachedType.ActualType, (int)(object)value);
+        }
+
+        public object? ToActualNullable___(TAccess? value)
+        {
+            return value is { } val ? ToActual(val) : null;
+        }
     }
 }

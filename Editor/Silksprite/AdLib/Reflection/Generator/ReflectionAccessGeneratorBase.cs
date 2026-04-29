@@ -110,6 +110,7 @@ namespace AdLib.Reflection.Generator
                 _ => throw new NotSupportedException(asmdefName)
             };
             sb.AppendLine($"static readonly CachedType CachedType = CachedAppDomain.Instance.{getTypeMethod}(\"{ActualType.FullName}\");");
+            sb.AppendLine("static CachedType CachedType___ => CachedType;");
             sb.AppendLine("public static Type ActualType => CachedType.ActualType;");
             sb.AppendLine("public static bool IsImplemented => CachedType.IsImplemented;");
         }

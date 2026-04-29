@@ -10,7 +10,7 @@ namespace AdLib.Reflection.Extensions
         static string GetNestedTypeName(this Type type, bool fullName, bool isNullGuarded)
         {
             var nestedTypePath = type.GetNestedTypePath(fullName, isNullGuarded);
-            return isNullGuarded ? $"{nestedTypePath}?" : nestedTypePath;
+            return isNullGuarded && !type.IsValueType ? $"{nestedTypePath}?" : nestedTypePath;
         }
 
         static string GetNestedTypePath(this Type type, bool fullName, bool isNullGuarded)
