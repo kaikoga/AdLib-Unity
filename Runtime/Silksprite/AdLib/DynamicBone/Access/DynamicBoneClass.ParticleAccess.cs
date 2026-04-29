@@ -9,10 +9,12 @@ using UnityEngine;
 
 public static partial class DynamicBoneClass
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     [ReflectionAccess("DynamicBone+Particle", "Assembly-CSharp")]
     public class ParticleAccess : ObjectAccessBase<object>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBone+Particle");
+        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -20,94 +22,109 @@ public static partial class DynamicBoneClass
         public ParticleAccess(object baseObject) : base(baseObject) { }
         public static ParticleAccess? Nullable(object? baseObject) => baseObject != null ? new ParticleAccess(baseObject) : null;
         
-        public Transform m_Transform
+        // Direct Field
+        public Transform? m_Transform
         {
-            get => DynamicObject.m_Transform;
-            set => DynamicObject.m_Transform = value;
+            get => (Transform)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Transform));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Transform), value);
         }
         
+        // Direct Field
         public int m_ParentIndex
         {
-            get => DynamicObject.m_ParentIndex;
-            set => DynamicObject.m_ParentIndex = value;
+            get => (int)CachedType___.GetFieldValueOf(BaseObject, nameof(m_ParentIndex));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_ParentIndex), value);
         }
         
+        // Direct Field
         public float m_Damping
         {
-            get => DynamicObject.m_Damping;
-            set => DynamicObject.m_Damping = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Damping));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Damping), value);
         }
         
+        // Direct Field
         public float m_Elasticity
         {
-            get => DynamicObject.m_Elasticity;
-            set => DynamicObject.m_Elasticity = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Elasticity));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Elasticity), value);
         }
         
+        // Direct Field
         public float m_Stiffness
         {
-            get => DynamicObject.m_Stiffness;
-            set => DynamicObject.m_Stiffness = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Stiffness));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Stiffness), value);
         }
         
+        // Direct Field
         public float m_Inert
         {
-            get => DynamicObject.m_Inert;
-            set => DynamicObject.m_Inert = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Inert));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Inert), value);
         }
         
+        // Direct Field
         public float m_Friction
         {
-            get => DynamicObject.m_Friction;
-            set => DynamicObject.m_Friction = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Friction));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Friction), value);
         }
         
+        // Direct Field
         public float m_Radius
         {
-            get => DynamicObject.m_Radius;
-            set => DynamicObject.m_Radius = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Radius));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Radius), value);
         }
         
+        // Direct Field
         public float m_BoneLength
         {
-            get => DynamicObject.m_BoneLength;
-            set => DynamicObject.m_BoneLength = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_BoneLength));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_BoneLength), value);
         }
         
+        // Direct Field
         public bool m_isCollide
         {
-            get => DynamicObject.m_isCollide;
-            set => DynamicObject.m_isCollide = value;
+            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(m_isCollide));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_isCollide), value);
         }
         
+        // Direct Field
         public Vector3 m_Position
         {
-            get => DynamicObject.m_Position;
-            set => DynamicObject.m_Position = value;
+            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Position));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Position), value);
         }
         
+        // Direct Field
         public Vector3 m_PrevPosition
         {
-            get => DynamicObject.m_PrevPosition;
-            set => DynamicObject.m_PrevPosition = value;
+            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(m_PrevPosition));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_PrevPosition), value);
         }
         
+        // Direct Field
         public Vector3 m_EndOffset
         {
-            get => DynamicObject.m_EndOffset;
-            set => DynamicObject.m_EndOffset = value;
+            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(m_EndOffset));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_EndOffset), value);
         }
         
+        // Direct Field
         public Vector3 m_InitLocalPosition
         {
-            get => DynamicObject.m_InitLocalPosition;
-            set => DynamicObject.m_InitLocalPosition = value;
+            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(m_InitLocalPosition));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_InitLocalPosition), value);
         }
         
+        // Direct Field
         public Quaternion m_InitLocalRotation
         {
-            get => DynamicObject.m_InitLocalRotation;
-            set => DynamicObject.m_InitLocalRotation = value;
+            get => (Quaternion)CachedType___.GetFieldValueOf(BaseObject, nameof(m_InitLocalRotation));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_InitLocalRotation), value);
         }
     }
 }

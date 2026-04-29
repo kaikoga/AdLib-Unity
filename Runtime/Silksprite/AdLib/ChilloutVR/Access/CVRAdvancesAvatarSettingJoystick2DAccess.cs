@@ -1,35 +1,46 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Silksprite.AdLib.Reflection;
+using Silksprite.AdLib.Reflection.Attributes;
+using Silksprite.AdLib.Reflection.Base;
+using Silksprite.AdLib.Reflection.Extensions;
 using UnityEngine;
 
 namespace Silksprite.AdLib.ChilloutVR.Access
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [ReflectionAccess("ABI.CCK.Scripts.CVRAdvancesAvatarSettingJoystick2D", "Assembly-CSharp")]
     public class CVRAdvancesAvatarSettingJoystick2DAccess : CVRAdvancesAvatarSettingBaseAccess
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Scripts.CVRAdvancesAvatarSettingJoystick2D");
-        public new static Type ActualType => CachedType.ActualType;
-
+        static CachedType CachedType___ => CachedType;
+        public static Type ActualType => CachedType.ActualType;
+        public static bool IsImplemented => CachedType.IsImplemented;
+        
         public CVRAdvancesAvatarSettingJoystick2DAccess() : base(CachedType.CreateInstance()) { }
         public CVRAdvancesAvatarSettingJoystick2DAccess(object baseObject) : base(baseObject) { }
-
+        public static CVRAdvancesAvatarSettingJoystick2DAccess? Nullable(object? baseObject) => baseObject != null ? new CVRAdvancesAvatarSettingJoystick2DAccess(baseObject) : null;
+        
+        // Direct Field
         public Vector2 defaultValue
         {
-            get => DynamicObject.defaultValue;
-            set => DynamicObject.defaultValue = value;
+            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(defaultValue));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(defaultValue), value);
         }
-
+        
+        // Direct Field
         public Vector2 rangeMin
         {
-            get => DynamicObject.rangeMin;
-            set => DynamicObject.rangeMin = value;
+            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(rangeMin));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(rangeMin), value);
         }
-
+        
+        // Direct Field
         public Vector2 rangeMax
         {
-            get => DynamicObject.rangeMax;
-            set => DynamicObject.rangeMax = value;
+            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(rangeMax));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(rangeMax), value);
         }
     }
 }

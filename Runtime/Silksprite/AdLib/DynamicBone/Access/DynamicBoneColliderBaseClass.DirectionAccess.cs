@@ -8,10 +8,12 @@ using Silksprite.AdLib.Reflection.Extensions;
 
 public static partial class DynamicBoneColliderBaseClass
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     [ReflectionAccess("DynamicBoneColliderBase+Direction", "Assembly-CSharp")]
     public class DirectionAccess : EnumAccessBase<DirectionAccess.EnumValues>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBoneColliderBase+Direction");
+        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         

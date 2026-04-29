@@ -8,10 +8,12 @@ using Silksprite.AdLib.Reflection.Extensions;
 
 public static partial class DynamicBoneClass
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     [ReflectionAccess("DynamicBone+FreezeAxis", "Assembly-CSharp")]
     public class FreezeAxisAccess : EnumAccessBase<FreezeAxisAccess.EnumValues>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBone+FreezeAxis");
+        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         

@@ -6,10 +6,12 @@ using Silksprite.AdLib.Reflection.Attributes;
 using Silksprite.AdLib.Reflection.Base;
 using Silksprite.AdLib.Reflection.Extensions;
 
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 [ReflectionAccess("DynamicBonePlaneCollider", "Assembly-CSharp")]
-public class DynamicBonePlaneColliderAccess : ObjectAccessBase<object>
+public class DynamicBonePlaneColliderAccess : DynamicBoneColliderBaseAccess
 {
     static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBonePlaneCollider");
+    static CachedType CachedType___ => CachedType;
     public static Type ActualType => CachedType.ActualType;
     public static bool IsImplemented => CachedType.IsImplemented;
     

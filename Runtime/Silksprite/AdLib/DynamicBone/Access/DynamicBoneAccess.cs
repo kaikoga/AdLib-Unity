@@ -14,6 +14,7 @@ namespace Silksprite.AdLib.DynamicBone.Access
     public class DynamicBoneAccess : ObjectAccessBase<MonoBehaviour>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("DynamicBone");
+        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -21,154 +22,179 @@ namespace Silksprite.AdLib.DynamicBone.Access
         public DynamicBoneAccess(object baseObject) : base(baseObject) { }
         public static DynamicBoneAccess? Nullable(object? baseObject) => baseObject != null ? new DynamicBoneAccess(baseObject) : null;
         
-        public Transform m_Root
+        // Direct Field
+        public Transform? m_Root
         {
-            get => DynamicObject.m_Root;
-            set => DynamicObject.m_Root = value;
+            get => (Transform)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Root));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Root), value);
         }
         
+        // Direct Field
         public float m_UpdateRate
         {
-            get => DynamicObject.m_UpdateRate;
-            set => DynamicObject.m_UpdateRate = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_UpdateRate));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_UpdateRate), value);
         }
         
+        // EnumAccess Field
         public DynamicBoneClass.UpdateModeAccess.EnumValues m_UpdateMode
         {
-            get => DynamicBoneClass.UpdateModeAccess.Shared.ToAccess(DynamicObject.m_UpdateMode);
-            set => DynamicObject.m_UpdateMode = DynamicBoneClass.UpdateModeAccess.Shared.ToActual(value);
+            get => DynamicBoneClass.UpdateModeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(m_UpdateMode)));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_UpdateMode), DynamicBoneClass.UpdateModeAccess.Shared.ToActual___(value));
         }
         
+        // Direct Field
         public float m_Damping
         {
-            get => DynamicObject.m_Damping;
-            set => DynamicObject.m_Damping = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Damping));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Damping), value);
         }
         
-        public AnimationCurve m_DampingDistrib
+        // Direct Field
+        public AnimationCurve? m_DampingDistrib
         {
-            get => DynamicObject.m_DampingDistrib;
-            set => DynamicObject.m_DampingDistrib = value;
+            get => (AnimationCurve)CachedType___.GetFieldValueOf(BaseObject, nameof(m_DampingDistrib));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_DampingDistrib), value);
         }
         
+        // Direct Field
         public float m_Elasticity
         {
-            get => DynamicObject.m_Elasticity;
-            set => DynamicObject.m_Elasticity = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Elasticity));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Elasticity), value);
         }
         
-        public AnimationCurve m_ElasticityDistrib
+        // Direct Field
+        public AnimationCurve? m_ElasticityDistrib
         {
-            get => DynamicObject.m_ElasticityDistrib;
-            set => DynamicObject.m_ElasticityDistrib = value;
+            get => (AnimationCurve)CachedType___.GetFieldValueOf(BaseObject, nameof(m_ElasticityDistrib));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_ElasticityDistrib), value);
         }
         
+        // Direct Field
         public float m_Stiffness
         {
-            get => DynamicObject.m_Stiffness;
-            set => DynamicObject.m_Stiffness = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Stiffness));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Stiffness), value);
         }
         
-        public AnimationCurve m_StiffnessDistrib
+        // Direct Field
+        public AnimationCurve? m_StiffnessDistrib
         {
-            get => DynamicObject.m_StiffnessDistrib;
-            set => DynamicObject.m_StiffnessDistrib = value;
+            get => (AnimationCurve)CachedType___.GetFieldValueOf(BaseObject, nameof(m_StiffnessDistrib));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_StiffnessDistrib), value);
         }
         
+        // Direct Field
         public float m_Inert
         {
-            get => DynamicObject.m_Inert;
-            set => DynamicObject.m_Inert = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Inert));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Inert), value);
         }
         
-        public AnimationCurve m_InertDistrib
+        // Direct Field
+        public AnimationCurve? m_InertDistrib
         {
-            get => DynamicObject.m_InertDistrib;
-            set => DynamicObject.m_InertDistrib = value;
+            get => (AnimationCurve)CachedType___.GetFieldValueOf(BaseObject, nameof(m_InertDistrib));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_InertDistrib), value);
         }
         
+        // Direct Field
         public float m_Friction
         {
-            get => DynamicObject.m_Friction;
-            set => DynamicObject.m_Friction = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Friction));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Friction), value);
         }
         
-        public AnimationCurve m_FrictionDistrib
+        // Direct Field
+        public AnimationCurve? m_FrictionDistrib
         {
-            get => DynamicObject.m_FrictionDistrib;
-            set => DynamicObject.m_FrictionDistrib = value;
+            get => (AnimationCurve)CachedType___.GetFieldValueOf(BaseObject, nameof(m_FrictionDistrib));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_FrictionDistrib), value);
         }
         
+        // Direct Field
         public float m_Radius
         {
-            get => DynamicObject.m_Radius;
-            set => DynamicObject.m_Radius = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Radius));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Radius), value);
         }
         
-        public AnimationCurve m_RadiusDistrib
+        // Direct Field
+        public AnimationCurve? m_RadiusDistrib
         {
-            get => DynamicObject.m_RadiusDistrib;
-            set => DynamicObject.m_RadiusDistrib = value;
+            get => (AnimationCurve)CachedType___.GetFieldValueOf(BaseObject, nameof(m_RadiusDistrib));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_RadiusDistrib), value);
         }
         
+        // Direct Field
         public float m_EndLength
         {
-            get => DynamicObject.m_EndLength;
-            set => DynamicObject.m_EndLength = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_EndLength));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_EndLength), value);
         }
         
+        // Direct Field
         public Vector3 m_EndOffset
         {
-            get => DynamicObject.m_EndOffset;
-            set => DynamicObject.m_EndOffset = value;
+            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(m_EndOffset));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_EndOffset), value);
         }
         
+        // Direct Field
         public Vector3 m_Gravity
         {
-            get => DynamicObject.m_Gravity;
-            set => DynamicObject.m_Gravity = value;
+            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Gravity));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Gravity), value);
         }
         
+        // Direct Field
         public Vector3 m_Force
         {
-            get => DynamicObject.m_Force;
-            set => DynamicObject.m_Force = value;
+            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Force));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Force), value);
         }
         
+        // AccessList Field
         public List<DynamicBoneColliderBaseAccess?>? m_Colliders
         {
-            get => ((object)DynamicObject.m_Colliders).ToAccessList(DynamicBoneColliderBaseAccess.Nullable);
-            set => DynamicObject.m_Colliders = value?.ToDynamicList(DynamicBoneColliderBaseAccess.ActualType);
+            get => CachedType___.GetFieldValueOf(BaseObject, nameof(m_Colliders)).ToAccessList(DynamicBoneColliderBaseAccess.Nullable);
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Colliders), value?.ToDynamicList(DynamicBoneColliderBaseAccess.ActualType));
         }
         
-        public List<Transform> m_Exclusions
+        // Direct Field
+        public List<Transform?>? m_Exclusions
         {
-            get => DynamicObject.m_Exclusions;
-            set => DynamicObject.m_Exclusions = value;
+            get => (List<Transform>)CachedType___.GetFieldValueOf(BaseObject, nameof(m_Exclusions));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Exclusions), value);
         }
         
+        // EnumAccess Field
         public DynamicBoneClass.FreezeAxisAccess.EnumValues m_FreezeAxis
         {
-            get => DynamicBoneClass.FreezeAxisAccess.Shared.ToAccess(DynamicObject.m_FreezeAxis);
-            set => DynamicObject.m_FreezeAxis = DynamicBoneClass.FreezeAxisAccess.Shared.ToActual(value);
+            get => DynamicBoneClass.FreezeAxisAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(m_FreezeAxis)));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_FreezeAxis), DynamicBoneClass.FreezeAxisAccess.Shared.ToActual___(value));
         }
         
+        // Direct Field
         public bool m_DistantDisable
         {
-            get => DynamicObject.m_DistantDisable;
-            set => DynamicObject.m_DistantDisable = value;
+            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(m_DistantDisable));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_DistantDisable), value);
         }
         
-        public Transform m_ReferenceObject
+        // Direct Field
+        public Transform? m_ReferenceObject
         {
-            get => DynamicObject.m_ReferenceObject;
-            set => DynamicObject.m_ReferenceObject = value;
+            get => (Transform)CachedType___.GetFieldValueOf(BaseObject, nameof(m_ReferenceObject));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_ReferenceObject), value);
         }
         
+        // Direct Field
         public float m_DistanceToObject
         {
-            get => DynamicObject.m_DistanceToObject;
-            set => DynamicObject.m_DistanceToObject = value;
+            get => (float)CachedType___.GetFieldValueOf(BaseObject, nameof(m_DistanceToObject));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_DistanceToObject), value);
         }
     }
 }
