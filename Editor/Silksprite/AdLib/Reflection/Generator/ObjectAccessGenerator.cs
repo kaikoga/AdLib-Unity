@@ -136,7 +136,7 @@ namespace AdLib.Reflection.Generator
                     MemberTypes.Property => nameof(CachedType.GetPropertyValueOf),
                     _ => throw new NotSupportedException()
                 };
-                return $"CachedType___.{getMethod}(BaseObject, nameof({fieldName}))";
+                return $"CachedType.{getMethod}(BaseObject, nameof({fieldName}))";
             }
             string Setter(string value)
             {
@@ -146,7 +146,7 @@ namespace AdLib.Reflection.Generator
                     MemberTypes.Property => nameof(CachedType.SetPropertyValueOf),
                     _ => throw new NotSupportedException()
                 };
-                return $"CachedType___.{setMethod}(BaseObject, nameof({fieldName}), {value})";
+                return $"CachedType.{setMethod}(BaseObject, nameof({fieldName}), {value})";
             }
 
             if (TryGuessAccessValueType(actualMemberType, out _, out var accessClassName, out var accessValueTypeName, out var accessImplKind))
@@ -172,7 +172,7 @@ namespace AdLib.Reflection.Generator
                         break;
                     case AccessImplKind.EnumAccess:
                         sb.AppendLine($"get => {accessClassName}.Shared.ToAccess({Getter()});");
-                        sb.AppendLine($"set => {Setter($"{accessClassName}.Shared.ToActual___(value)")};");
+                        sb.AppendLine($"set => {Setter($"{accessClassName}.Shared.ToActual(value)")};");
                         break;
                     case AccessImplKind.AccessList:
                         sb.AppendLine($"get => {Getter()}.ToAccessList({accessClassName}.Nullable);");
@@ -200,7 +200,7 @@ namespace AdLib.Reflection.Generator
                     MemberTypes.Property => nameof(CachedType.GetPropertyValue),
                     _ => throw new NotSupportedException()
                 };
-                return $"CachedType___.{getMethod}(nameof({fieldName}))";
+                return $"CachedType.{getMethod}(nameof({fieldName}))";
             }
             string Setter(string value)
             {
@@ -210,7 +210,7 @@ namespace AdLib.Reflection.Generator
                     MemberTypes.Property => nameof(CachedType.SetPropertyValue),
                     _ => throw new NotSupportedException()
                 };
-                return $"CachedType___.{setMethod}(nameof({fieldName}), {value})";
+                return $"CachedType.{setMethod}(nameof({fieldName}), {value})";
             }
 
             if (TryGuessAccessValueType(actualMemberType, out _, out var accessClassName, out var accessValueTypeName, out var accessImplKind))

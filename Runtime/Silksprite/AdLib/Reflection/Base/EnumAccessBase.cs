@@ -29,14 +29,14 @@ namespace Silksprite.AdLib.Reflection.Base
             return value != null ? ToAccess(value) : default;
         }
 
-        public object ToActual___(TAccess value)
+        public object ToActual(TAccess value)
         {
             return Enum.ToObject(_cachedType.ActualType, (int)(object)value);
         }
 
-        public object? ToActualNullable___(TAccess? value)
+        public object? ToActualNullable(TAccess? value)
         {
-            return value is { } val ? ToActual___(val) : null;
+            return value is { } val ? ToActual(val) : null;
         }
     }
 }

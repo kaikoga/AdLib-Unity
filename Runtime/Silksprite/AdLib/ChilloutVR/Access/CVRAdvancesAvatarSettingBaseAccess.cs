@@ -25,7 +25,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public CVRAdvancesAvatarSettingBaseClass.ParameterTypeAccess.EnumValues usedType
         {
             get => CVRAdvancesAvatarSettingBaseClass.ParameterTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(usedType)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(usedType), CVRAdvancesAvatarSettingBaseClass.ParameterTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(usedType), CVRAdvancesAvatarSettingBaseClass.ParameterTypeAccess.Shared.ToActual(value));
         }
         
         // Direct Field

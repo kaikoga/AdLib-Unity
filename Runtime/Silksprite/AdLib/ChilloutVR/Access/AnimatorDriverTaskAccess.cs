@@ -25,7 +25,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public AnimatorDriverTaskClass.ParameterTypeAccess.EnumValues targetType
         {
             get => AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(targetType)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(targetType), AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(targetType), AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
@@ -39,14 +39,14 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public AnimatorDriverTaskClass.OperatorAccess.EnumValues op
         {
             get => AnimatorDriverTaskClass.OperatorAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(op)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(op), AnimatorDriverTaskClass.OperatorAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(op), AnimatorDriverTaskClass.OperatorAccess.Shared.ToActual(value));
         }
         
         // EnumAccess Field
         public AnimatorDriverTaskClass.SourceTypeAccess.EnumValues aType
         {
             get => AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(aType)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(aType), AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(aType), AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
@@ -67,7 +67,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public AnimatorDriverTaskClass.ParameterTypeAccess.EnumValues aParamType
         {
             get => AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(aParamType)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(aParamType), AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(aParamType), AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
@@ -81,7 +81,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public AnimatorDriverTaskClass.SourceTypeAccess.EnumValues bType
         {
             get => AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(bType)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(bType), AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(bType), AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
@@ -102,7 +102,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public AnimatorDriverTaskClass.ParameterTypeAccess.EnumValues bParamType
         {
             get => AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(bParamType)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(bParamType), AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(bParamType), AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
@@ -116,7 +116,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public AnimatorDriverTaskClass.SourceTypeAccess.EnumValues cType
         {
             get => AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(cType)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(cType), AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(cType), AnimatorDriverTaskClass.SourceTypeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
@@ -137,7 +137,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public AnimatorDriverTaskClass.ParameterTypeAccess.EnumValues cParamType
         {
             get => AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(cParamType)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(cParamType), AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(cParamType), AnimatorDriverTaskClass.ParameterTypeAccess.Shared.ToActual(value));
         }
         
         // Direct Field

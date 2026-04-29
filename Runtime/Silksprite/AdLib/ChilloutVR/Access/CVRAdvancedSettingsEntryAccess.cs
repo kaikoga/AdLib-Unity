@@ -46,7 +46,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public CVRAdvancedSettingsEntryClass.SettingsTypeAccess.EnumValues type
         {
             get => CVRAdvancedSettingsEntryClass.SettingsTypeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(type)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(type), CVRAdvancedSettingsEntryClass.SettingsTypeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(type), CVRAdvancedSettingsEntryClass.SettingsTypeAccess.Shared.ToActual(value));
         }
         
         // Access Field

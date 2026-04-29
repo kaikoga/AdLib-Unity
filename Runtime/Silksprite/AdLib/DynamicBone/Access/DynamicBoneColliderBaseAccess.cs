@@ -24,7 +24,7 @@ public class DynamicBoneColliderBaseAccess : ObjectAccessBase<MonoBehaviour>
     public DynamicBoneColliderBaseClass.DirectionAccess.EnumValues m_Direction
     {
         get => DynamicBoneColliderBaseClass.DirectionAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(m_Direction)));
-        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Direction), DynamicBoneColliderBaseClass.DirectionAccess.Shared.ToActual___(value));
+        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Direction), DynamicBoneColliderBaseClass.DirectionAccess.Shared.ToActual(value));
     }
     
     // Direct Field
@@ -38,6 +38,6 @@ public class DynamicBoneColliderBaseAccess : ObjectAccessBase<MonoBehaviour>
     public DynamicBoneColliderBaseClass.BoundAccess.EnumValues m_Bound
     {
         get => DynamicBoneColliderBaseClass.BoundAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(m_Bound)));
-        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Bound), DynamicBoneColliderBaseClass.BoundAccess.Shared.ToActual___(value));
+        set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_Bound), DynamicBoneColliderBaseClass.BoundAccess.Shared.ToActual(value));
     }
 }

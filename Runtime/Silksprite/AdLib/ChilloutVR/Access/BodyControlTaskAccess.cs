@@ -25,7 +25,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         public BodyControlTaskClass.BodyMaskAccess.EnumValues target
         {
             get => BodyControlTaskClass.BodyMaskAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(target)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(target), BodyControlTaskClass.BodyMaskAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(target), BodyControlTaskClass.BodyMaskAccess.Shared.ToActual(value));
         }
         
         // Direct Field

@@ -14,7 +14,6 @@ namespace Silksprite.AdLib.ChilloutVR.Access
     public class CVRAvatarAccess : ObjectAccessBase<MonoBehaviour>
     {
         static readonly CachedType CachedType = CachedAppDomain.Instance.GetRuntimeType("ABI.CCK.Components.CVRAvatar");
-        static CachedType CachedType___ => CachedType;
         public static Type ActualType => CachedType.ActualType;
         public static bool IsImplemented => CachedType.IsImplemented;
         
@@ -25,15 +24,15 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public Vector3 viewPosition
         {
-            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(viewPosition));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(viewPosition), value);
+            get => (Vector3)CachedType.GetFieldValueOf(BaseObject, nameof(viewPosition));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(viewPosition), value);
         }
         
         // Direct Field
         public Vector3 voicePosition
         {
-            get => (Vector3)CachedType___.GetFieldValueOf(BaseObject, nameof(voicePosition));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(voicePosition), value);
+            get => (Vector3)CachedType.GetFieldValueOf(BaseObject, nameof(voicePosition));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(voicePosition), value);
         }
         
         // CVRAvatar.CVRAvatarVoiceParent voiceParent
@@ -41,29 +40,29 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public AnimatorOverrideController? overrides
         {
-            get => (AnimatorOverrideController)CachedType___.GetFieldValueOf(BaseObject, nameof(overrides));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(overrides), value);
+            get => (AnimatorOverrideController)CachedType.GetFieldValueOf(BaseObject, nameof(overrides));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(overrides), value);
         }
         
         // Direct Field
         public SkinnedMeshRenderer? bodyMesh
         {
-            get => (SkinnedMeshRenderer)CachedType___.GetFieldValueOf(BaseObject, nameof(bodyMesh));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(bodyMesh), value);
+            get => (SkinnedMeshRenderer)CachedType.GetFieldValueOf(BaseObject, nameof(bodyMesh));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(bodyMesh), value);
         }
         
         // Direct Field
         public Vector2 eyeMovementInterval
         {
-            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(eyeMovementInterval));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(eyeMovementInterval), value);
+            get => (Vector2)CachedType.GetFieldValueOf(BaseObject, nameof(eyeMovementInterval));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(eyeMovementInterval), value);
         }
         
         // Direct Field
         public bool useEyeMovement
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(useEyeMovement));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(useEyeMovement), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(useEyeMovement));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(useEyeMovement), value);
         }
         
         // CVRAvatar.EyeMovementInfo eyeMovementInfo
@@ -71,71 +70,71 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public bool useBlinkBlendshapes
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(useBlinkBlendshapes));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(useBlinkBlendshapes), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(useBlinkBlendshapes));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(useBlinkBlendshapes), value);
         }
         
         // Direct Field
         public string?[]? blinkBlendshape
         {
-            get => (string[])CachedType___.GetFieldValueOf(BaseObject, nameof(blinkBlendshape));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(blinkBlendshape), value);
+            get => (string[])CachedType.GetFieldValueOf(BaseObject, nameof(blinkBlendshape));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(blinkBlendshape), value);
         }
         
         // Direct Field
         public Vector2 blinkGap
         {
-            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(blinkGap));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(blinkGap), value);
+            get => (Vector2)CachedType.GetFieldValueOf(BaseObject, nameof(blinkGap));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(blinkGap), value);
         }
         
         // Direct Field
         public Vector2 blinkDuration
         {
-            get => (Vector2)CachedType___.GetFieldValueOf(BaseObject, nameof(blinkDuration));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(blinkDuration), value);
+            get => (Vector2)CachedType.GetFieldValueOf(BaseObject, nameof(blinkDuration));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(blinkDuration), value);
         }
         
         // EnumAccess Field
         public CVRAvatarClass.CVRAvatarEyeBlinkModeAccess.EnumValues blinkMode
         {
-            get => CVRAvatarClass.CVRAvatarEyeBlinkModeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(blinkMode)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(blinkMode), CVRAvatarClass.CVRAvatarEyeBlinkModeAccess.Shared.ToActual___(value));
+            get => CVRAvatarClass.CVRAvatarEyeBlinkModeAccess.Shared.ToAccess(CachedType.GetFieldValueOf(BaseObject, nameof(blinkMode)));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(blinkMode), CVRAvatarClass.CVRAvatarEyeBlinkModeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
         public bool useVisemeLipsync
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(useVisemeLipsync));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(useVisemeLipsync), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(useVisemeLipsync));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(useVisemeLipsync), value);
         }
         
         // EnumAccess Field
         public CVRAvatarClass.CVRAvatarVisemeModeAccess.EnumValues visemeMode
         {
-            get => CVRAvatarClass.CVRAvatarVisemeModeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(visemeMode)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(visemeMode), CVRAvatarClass.CVRAvatarVisemeModeAccess.Shared.ToActual___(value));
+            get => CVRAvatarClass.CVRAvatarVisemeModeAccess.Shared.ToAccess(CachedType.GetFieldValueOf(BaseObject, nameof(visemeMode)));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(visemeMode), CVRAvatarClass.CVRAvatarVisemeModeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
         public int visemeSmoothing
         {
-            get => (int)CachedType___.GetFieldValueOf(BaseObject, nameof(visemeSmoothing));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(visemeSmoothing), value);
+            get => (int)CachedType.GetFieldValueOf(BaseObject, nameof(visemeSmoothing));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(visemeSmoothing), value);
         }
         
         // Direct Field
         public string?[]? visemeBlendshapes
         {
-            get => (string[])CachedType___.GetFieldValueOf(BaseObject, nameof(visemeBlendshapes));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(visemeBlendshapes), value);
+            get => (string[])CachedType.GetFieldValueOf(BaseObject, nameof(visemeBlendshapes));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(visemeBlendshapes), value);
         }
         
         // Direct Field
         public bool enableCustomFPR
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(enableCustomFPR));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(enableCustomFPR), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(enableCustomFPR));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(enableCustomFPR), value);
         }
         
         // List<CVRAvatarFPREntry> fprSettingsList
@@ -143,8 +142,8 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public bool enableAdvancedTagging
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(enableAdvancedTagging));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(enableAdvancedTagging), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(enableAdvancedTagging));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(enableAdvancedTagging), value);
         }
         
         // List<CVRAvatarAdvancedTaggingEntry> advancedTaggingList
@@ -152,92 +151,92 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         // Direct Field
         public bool avatarUsesAdvancedSettings
         {
-            get => (bool)CachedType___.GetFieldValueOf(BaseObject, nameof(avatarUsesAdvancedSettings));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(avatarUsesAdvancedSettings), value);
+            get => (bool)CachedType.GetFieldValueOf(BaseObject, nameof(avatarUsesAdvancedSettings));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(avatarUsesAdvancedSettings), value);
         }
         
         // Access Field
         public CVRAdvancedAvatarSettingsAccess? avatarSettings
         {
-            get => CVRAdvancedAvatarSettingsAccess.Nullable(CachedType___.GetFieldValueOf(BaseObject, nameof(avatarSettings)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(avatarSettings), value?.BaseObject);
+            get => CVRAdvancedAvatarSettingsAccess.Nullable(CachedType.GetFieldValueOf(BaseObject, nameof(avatarSettings)));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(avatarSettings), value?.BaseObject);
         }
         
         // Direct Field
         public static float EyeMovementMinIntervalLimit
         {
-            get => (float)CachedType___.GetFieldValue(nameof(EyeMovementMinIntervalLimit));
-            set => CachedType___.SetFieldValue(nameof(EyeMovementMinIntervalLimit), value);
+            get => (float)CachedType.GetFieldValue(nameof(EyeMovementMinIntervalLimit));
+            set => CachedType.SetFieldValue(nameof(EyeMovementMinIntervalLimit), value);
         }
         
         // Direct Field
         public static float EyeMovementMaxIntervalLimit
         {
-            get => (float)CachedType___.GetFieldValue(nameof(EyeMovementMaxIntervalLimit));
-            set => CachedType___.SetFieldValue(nameof(EyeMovementMaxIntervalLimit), value);
+            get => (float)CachedType.GetFieldValue(nameof(EyeMovementMaxIntervalLimit));
+            set => CachedType.SetFieldValue(nameof(EyeMovementMaxIntervalLimit), value);
         }
         
         // Direct Field
         public static float DefaultEyeAngleLimitDown
         {
-            get => (float)CachedType___.GetFieldValue(nameof(DefaultEyeAngleLimitDown));
-            set => CachedType___.SetFieldValue(nameof(DefaultEyeAngleLimitDown), value);
+            get => (float)CachedType.GetFieldValue(nameof(DefaultEyeAngleLimitDown));
+            set => CachedType.SetFieldValue(nameof(DefaultEyeAngleLimitDown), value);
         }
         
         // Direct Field
         public static float DefaultEyeAngleLimitUp
         {
-            get => (float)CachedType___.GetFieldValue(nameof(DefaultEyeAngleLimitUp));
-            set => CachedType___.SetFieldValue(nameof(DefaultEyeAngleLimitUp), value);
+            get => (float)CachedType.GetFieldValue(nameof(DefaultEyeAngleLimitUp));
+            set => CachedType.SetFieldValue(nameof(DefaultEyeAngleLimitUp), value);
         }
         
         // Direct Field
         public static float DefaultEyeAngleLimitIn
         {
-            get => (float)CachedType___.GetFieldValue(nameof(DefaultEyeAngleLimitIn));
-            set => CachedType___.SetFieldValue(nameof(DefaultEyeAngleLimitIn), value);
+            get => (float)CachedType.GetFieldValue(nameof(DefaultEyeAngleLimitIn));
+            set => CachedType.SetFieldValue(nameof(DefaultEyeAngleLimitIn), value);
         }
         
         // Direct Field
         public static float DefaultEyeAngleLimitOut
         {
-            get => (float)CachedType___.GetFieldValue(nameof(DefaultEyeAngleLimitOut));
-            set => CachedType___.SetFieldValue(nameof(DefaultEyeAngleLimitOut), value);
+            get => (float)CachedType.GetFieldValue(nameof(DefaultEyeAngleLimitOut));
+            set => CachedType.SetFieldValue(nameof(DefaultEyeAngleLimitOut), value);
         }
         
         // Direct Field
         public static float DefaultUniformAngleLimit
         {
-            get => (float)CachedType___.GetFieldValue(nameof(DefaultUniformAngleLimit));
-            set => CachedType___.SetFieldValue(nameof(DefaultUniformAngleLimit), value);
+            get => (float)CachedType.GetFieldValue(nameof(DefaultUniformAngleLimit));
+            set => CachedType.SetFieldValue(nameof(DefaultUniformAngleLimit), value);
         }
         
         // Direct Field
         public static float BlinkMinGapLimit
         {
-            get => (float)CachedType___.GetFieldValue(nameof(BlinkMinGapLimit));
-            set => CachedType___.SetFieldValue(nameof(BlinkMinGapLimit), value);
+            get => (float)CachedType.GetFieldValue(nameof(BlinkMinGapLimit));
+            set => CachedType.SetFieldValue(nameof(BlinkMinGapLimit), value);
         }
         
         // Direct Field
         public static float BlinkMaxGapLimit
         {
-            get => (float)CachedType___.GetFieldValue(nameof(BlinkMaxGapLimit));
-            set => CachedType___.SetFieldValue(nameof(BlinkMaxGapLimit), value);
+            get => (float)CachedType.GetFieldValue(nameof(BlinkMaxGapLimit));
+            set => CachedType.SetFieldValue(nameof(BlinkMaxGapLimit), value);
         }
         
         // Direct Field
         public static float BlinkMinDurationLimit
         {
-            get => (float)CachedType___.GetFieldValue(nameof(BlinkMinDurationLimit));
-            set => CachedType___.SetFieldValue(nameof(BlinkMinDurationLimit), value);
+            get => (float)CachedType.GetFieldValue(nameof(BlinkMinDurationLimit));
+            set => CachedType.SetFieldValue(nameof(BlinkMinDurationLimit), value);
         }
         
         // Direct Field
         public static float BlinkMaxDurationLimit
         {
-            get => (float)CachedType___.GetFieldValue(nameof(BlinkMaxDurationLimit));
-            set => CachedType___.SetFieldValue(nameof(BlinkMaxDurationLimit), value);
+            get => (float)CachedType.GetFieldValue(nameof(BlinkMaxDurationLimit));
+            set => CachedType.SetFieldValue(nameof(BlinkMaxDurationLimit), value);
         }
     }
 }

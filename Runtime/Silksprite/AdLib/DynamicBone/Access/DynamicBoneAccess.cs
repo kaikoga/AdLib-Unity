@@ -40,7 +40,7 @@ namespace Silksprite.AdLib.DynamicBone.Access
         public DynamicBoneClass.UpdateModeAccess.EnumValues m_UpdateMode
         {
             get => DynamicBoneClass.UpdateModeAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(m_UpdateMode)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_UpdateMode), DynamicBoneClass.UpdateModeAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_UpdateMode), DynamicBoneClass.UpdateModeAccess.Shared.ToActual(value));
         }
         
         // Direct Field
@@ -173,7 +173,7 @@ namespace Silksprite.AdLib.DynamicBone.Access
         public DynamicBoneClass.FreezeAxisAccess.EnumValues m_FreezeAxis
         {
             get => DynamicBoneClass.FreezeAxisAccess.Shared.ToAccess(CachedType___.GetFieldValueOf(BaseObject, nameof(m_FreezeAxis)));
-            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_FreezeAxis), DynamicBoneClass.FreezeAxisAccess.Shared.ToActual___(value));
+            set => CachedType___.SetFieldValueOf(BaseObject, nameof(m_FreezeAxis), DynamicBoneClass.FreezeAxisAccess.Shared.ToActual(value));
         }
         
         // Direct Field
