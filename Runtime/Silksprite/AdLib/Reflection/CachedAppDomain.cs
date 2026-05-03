@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using UnityEngine;
 
 namespace Silksprite.AdLib.Reflection
 {
@@ -24,18 +23,10 @@ namespace Silksprite.AdLib.Reflection
 
         public CachedType GetType(string assemblyName, string typeName)
         {
-            var type = GetAssembly(assemblyName)?.GetType(typeName);
-            if (type == null)
-            {
-                Debug.LogError($"Couldn't find type {typeName} in assembly {assemblyName}");
-                type = CachedType.NotFound;
-            }
-            return type;
+            return GetAssembly(assemblyName)?.GetType(typeName) ?? CachedType.NotFound(assemblyName, typeName);
         }
 
         public CachedType GetRuntimeType(string typeName) => GetType("Assembly-CSharp", typeName);
         public CachedType GetEditorType(string typeName) => GetType("Assembly-CSharp-Editor", typeName);
     }
-
-    // maybe this can be just Type?
 }

@@ -1,18 +1,45 @@
 using System;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Silksprite.AdLib.Reflection
 {
     [PublicAPI]
     public class CachedType
     {
-        public static readonly CachedType NotFound = new CachedType(null!); 
-
         readonly Type? _actualType;
-        public Type ActualType => _actualType!;
+        
+        public Type ActualType
+        {
+            get
+            {
+                if (_actualType == null)
+                {
+                    Debug.LogError($"Couldn't find type {_typeName} in assembly {_assemblyName}");
+                }
+                return _actualType!;
+            }
+        }
         public bool IsImplemented => _actualType != null;
 
-        public CachedType(Type type) => _actualType = type;
+        readonly string _assemblyName;
+        readonly string _typeName;
+        
+        CachedType(Type type, string assemblyName, string typeName)
+        {
+            _actualType = type;
+            _assemblyName = assemblyName;
+            _typeName = typeName;
+        }
+
+        public CachedType(Type type)
+        {
+            _actualType = type;
+            _assemblyName = type.Assembly.GetName().Name;
+            _typeName = type.FullName!;
+        }
+
+        public static CachedType NotFound(string assemblyName, string typeName) => new CachedType(null!, assemblyName, typeName); 
 
         public object CreateInstance() => Activator.CreateInstance(ActualType);
 

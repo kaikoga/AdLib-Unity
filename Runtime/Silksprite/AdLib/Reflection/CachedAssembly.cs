@@ -9,13 +9,27 @@ namespace Silksprite.AdLib.Reflection
     public class CachedAssembly
     {
         public readonly Assembly Assembly;
+        readonly string _assemblyName;
 
         Dictionary<string, CachedType>? _typeCache;
         Dictionary<string, CachedType> TypeCache => _typeCache ??= Assembly.GetTypes()
             .ToDictionary(type => type.FullName, type => new CachedType(type));
 
-        public CachedAssembly(Assembly assembly) => Assembly = assembly;
+        public CachedAssembly(Assembly assembly)
+        {
+            Assembly = assembly;
+            _assemblyName = assembly.GetName().Name;
+        }
 
-        public CachedType? GetType(string name) => TypeCache.GetValueOrDefault(name);
+        public CachedType GetType(string typeName)
+        {
+            if (TypeCache.TryGetValue(typeName, out var cachedType))
+            {
+                return cachedType;
+            }
+            cachedType = CachedType.NotFound(_assemblyName, typeName);
+            TypeCache.Add(typeName, cachedType);
+            return cachedType;
+        }
     }
 }
