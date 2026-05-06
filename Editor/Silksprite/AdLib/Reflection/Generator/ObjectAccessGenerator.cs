@@ -105,28 +105,28 @@ namespace AdLib.Reflection.Generator
                 foreach (var member in ActualType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
                 {
                     sb.AppendLine("");
-                    GenerateInstanceAccess(sb, member.FieldType, member.Name, MemberTypes.Field);
+                    GenerateInstanceAccess(sb, member.FieldType, true, true, member.Name, MemberTypes.Field);
                 }
                 foreach (var member in ActualType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
                 {
                     sb.AppendLine("");
-                    GenerateInstanceAccess(sb, member.PropertyType, member.Name, MemberTypes.Property);
+                    GenerateInstanceAccess(sb, member.PropertyType, member.CanRead, member.CanWrite, member.Name, MemberTypes.Property);
                 }
                 foreach (var member in ActualType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly))
                 {
                     sb.AppendLine("");
-                    GenerateStaticAccess(sb, member.FieldType, member.Name, MemberTypes.Field);
+                    GenerateStaticAccess(sb, member.FieldType, true, true, member.Name, MemberTypes.Field);
                 }
                 foreach (var member in ActualType.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly))
                 {
                     sb.AppendLine("");
-                    GenerateStaticAccess(sb, member.PropertyType, member.Name, MemberTypes.Property);
+                    GenerateStaticAccess(sb, member.PropertyType, member.CanRead, member.CanWrite, member.Name, MemberTypes.Property);
                 }
             }
             sb.AppendLine("}");
         }
 
-        void GenerateInstanceAccess(SourceCodeBuilder sb, Type actualMemberType, string fieldName, MemberTypes memberTypes)
+        void GenerateInstanceAccess(SourceCodeBuilder sb, Type actualMemberType, bool canRead, bool canWrite, string fieldName, MemberTypes memberTypes)
         {
             string Getter()
             {
@@ -163,20 +163,44 @@ namespace AdLib.Reflection.Generator
                         sb.AppendLine($"// {actualMemberType.GetPrettyTypeName()} {fieldName}");
                         break;
                     case AccessImplKind.Direct:
-                        sb.AppendLine($"get => ({actualMemberType.GetPrettyTypeName()}){Getter()};");
-                        sb.AppendLine($"set => {Setter("value")};");
+                        if (canRead)
+                        {
+                            sb.AppendLine($"get => ({actualMemberType.GetPrettyTypeName()}){Getter()};");
+                        }
+                        if (canWrite)
+                        {
+                            sb.AppendLine($"set => {Setter("value")};");
+                        }
                         break;
                     case AccessImplKind.Access:
-                        sb.AppendLine($"get => {accessClassName}.Nullable({Getter()});");
-                        sb.AppendLine($"set => {Setter("value?.BaseObject")};");
+                        if (canRead)
+                        {
+                            sb.AppendLine($"get => {accessClassName}.Nullable({Getter()});");
+                        }
+                        if (canWrite)
+                        {
+                            sb.AppendLine($"set => {Setter("value?.BaseObject")};");
+                        }
                         break;
                     case AccessImplKind.EnumAccess:
-                        sb.AppendLine($"get => {accessClassName}.Shared.ToAccess({Getter()});");
-                        sb.AppendLine($"set => {Setter($"{accessClassName}.Shared.ToActual(value)")};");
+                        if (canRead)
+                        {
+                            sb.AppendLine($"get => {accessClassName}.Shared.ToAccess({Getter()});");
+                        }
+                        if (canWrite)
+                        {
+                            sb.AppendLine($"set => {Setter($"{accessClassName}.Shared.ToActual(value)")};");
+                        }
                         break;
                     case AccessImplKind.AccessList:
-                        sb.AppendLine($"get => {Getter()}.ToAccessList({accessClassName}.Nullable);");
-                        sb.AppendLine($"set => {Setter($"value?.ToDynamicList({accessClassName}.ActualType)")};");
+                        if (canRead)
+                        {
+                            sb.AppendLine($"get => {Getter()}.ToAccessList({accessClassName}.Nullable);");
+                        }
+                        if (canWrite)
+                        {
+                            sb.AppendLine($"set => {Setter($"value?.ToDynamicList({accessClassName}.ActualType)")};");
+                        }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -190,7 +214,7 @@ namespace AdLib.Reflection.Generator
             }
         }
 
-        void GenerateStaticAccess(SourceCodeBuilder sb, Type actualMemberType, string fieldName, MemberTypes memberTypes)
+        void GenerateStaticAccess(SourceCodeBuilder sb, Type actualMemberType, bool canRead, bool canWrite, string fieldName, MemberTypes memberTypes)
         {
             string Getter()
             {
@@ -227,17 +251,35 @@ namespace AdLib.Reflection.Generator
                         sb.AppendLine($"// static {actualMemberType.GetPrettyTypeName()} {fieldName}");
                         break;
                     case AccessImplKind.Direct:
-                        sb.AppendLine($"get => ({actualMemberType.GetPrettyTypeName()}){Getter()};");
-                        sb.AppendLine($"set => {Setter("value")};");
+                        if (canRead)
+                        {
+                            sb.AppendLine($"get => ({actualMemberType.GetPrettyTypeName()}){Getter()};");
+                        }
+                        if (canWrite)
+                        {
+                            sb.AppendLine($"set => {Setter("value")};");
+                        }
                         break;
                     case AccessImplKind.Access:
-                        sb.AppendLine($"get => {accessClassName}.Nullable({Getter()});");
-                        sb.AppendLine($"set => {Setter("value?.BaseObject")};");
+                        if (canRead)
+                        {
+                            sb.AppendLine($"get => {accessClassName}.Nullable({Getter()});");
+                        }
+                        if (canWrite)
+                        {
+                            sb.AppendLine($"set => {Setter("value?.BaseObject")};");
+                        }
                         break;
                     case AccessImplKind.EnumAccess:
                     case AccessImplKind.AccessList:
-                        sb.AppendLine("get;");
-                        sb.AppendLine("set;");
+                        if (canRead)
+                        {
+                            sb.AppendLine("get;");
+                        }
+                        if (canWrite)
+                        {
+                            sb.AppendLine("set;");
+                        }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
