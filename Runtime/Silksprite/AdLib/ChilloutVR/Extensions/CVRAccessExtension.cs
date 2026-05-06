@@ -10,6 +10,11 @@ namespace Silksprite.AdLib.ChilloutVR.Extensions
     {
         public static bool TryGetCVRAvatarAccess(this Component component, [MaybeNullWhen(false)] out CVRAvatarAccess access)
         {
+            if (!CVRAvatarAccess.IsImplemented)
+            {
+                access = null;
+                return false;
+            }
             return component.TryGetComponentAccess(CVRAvatarAccess.ActualType, c => new CVRAvatarAccess(c), out access);
         }
     }

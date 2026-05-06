@@ -10,6 +10,11 @@ namespace Silksprite.AdLib.DynamicBone.Extensions
     {
         public static bool TryGetDynamicBoneAccess(this Component component, [MaybeNullWhen(false)] out DynamicBoneAccess access)
         {
+            if (!DynamicBoneAccess.IsImplemented)
+            {
+                access = null;
+                return false;
+            }
             return component.TryGetComponentAccess(DynamicBoneAccess.ActualType, c => new DynamicBoneAccess(c), out access);
         }
     }
