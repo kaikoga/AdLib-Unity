@@ -57,7 +57,12 @@ namespace Silksprite.AdLib.ChilloutVR.Access
         
         // CVRAdvancedAvatarSettingMaterialColor materialColorSettings
         
-        // CVRAdvancesAvatarSettingGameObjectDropdown dropDownSettings
+        // Access Field
+        public CVRAdvancesAvatarSettingGameObjectDropdownAccess? dropDownSettings
+        {
+            get => CVRAdvancesAvatarSettingGameObjectDropdownAccess.Nullable(CachedType.GetFieldValueOf(BaseObject, nameof(dropDownSettings)));
+            set => CachedType.SetFieldValueOf(BaseObject, nameof(dropDownSettings), value?.BaseObject);
+        }
         
         // Access Field
         public CVRAdvancesAvatarSettingSliderAccess? sliderSettings
