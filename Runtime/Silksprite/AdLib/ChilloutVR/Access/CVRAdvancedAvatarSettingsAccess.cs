@@ -5,7 +5,6 @@ using Silksprite.AdLib.Reflection;
 using Silksprite.AdLib.Reflection.Attributes;
 using Silksprite.AdLib.Reflection.Base;
 using Silksprite.AdLib.Reflection.Extensions;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Silksprite.AdLib.ChilloutVR.Access
@@ -50,12 +49,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
             set => CachedType.SetFieldValueOf(BaseObject, nameof(baseOverrideController), value);
         }
         
-        // Direct Field
-        public AnimatorController? animator
-        {
-            get => (AnimatorController)CachedType.GetFieldValueOf(BaseObject, nameof(animator));
-            set => CachedType.SetFieldValueOf(BaseObject, nameof(animator), value);
-        }
+        // AnimatorController animator
         
         // Direct Field
         public AnimatorOverrideController? overrides

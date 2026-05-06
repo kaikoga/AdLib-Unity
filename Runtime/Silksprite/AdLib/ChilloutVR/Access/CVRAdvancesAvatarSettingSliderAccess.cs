@@ -5,7 +5,6 @@ using Silksprite.AdLib.Reflection;
 using Silksprite.AdLib.Reflection.Attributes;
 using Silksprite.AdLib.Reflection.Base;
 using Silksprite.AdLib.Reflection.Extensions;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Silksprite.AdLib.ChilloutVR.Access
@@ -36,12 +35,7 @@ namespace Silksprite.AdLib.ChilloutVR.Access
             set => CachedType.SetFieldValueOf(BaseObject, nameof(materialPropertyTargets), value?.ToDynamicList(CVRAdvancedSettingsTargetEntryMaterialPropertyAccess.ActualType));
         }
         
-        // Direct Field
-        public ReorderableList? reorderableList
-        {
-            get => (ReorderableList)CachedType.GetFieldValueOf(BaseObject, nameof(reorderableList));
-            set => CachedType.SetFieldValueOf(BaseObject, nameof(reorderableList), value);
-        }
+        // ReorderableList reorderableList
         
         // Direct Field
         public bool useAnimationClip
