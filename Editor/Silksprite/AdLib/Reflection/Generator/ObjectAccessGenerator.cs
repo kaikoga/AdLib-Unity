@@ -295,6 +295,15 @@ namespace AdLib.Reflection.Generator
 
         bool TryGuessAccessValueType(Type actualMemberType, [MaybeNullWhen(false)] out string accessClassNamespace, [MaybeNullWhen(false)] out string accessClassName, [MaybeNullWhen(false)] out string accessValueTypeName, out AccessImplKind accessImplKind)
         {
+            if (GetAssemblyKind() == AssemblyKind.AssemblyCSharp && actualMemberType.Assembly.GetName().Name.Contains("UnityEditor"))
+            {
+                accessClassNamespace = null;
+                accessClassName = null;
+                accessValueTypeName = null;
+                accessImplKind = AccessImplKind.NotSupported;
+                return false;
+            }
+
             bool IsDirectAllowed(Type type)
             {
                 return type.Assembly != ActualType.Assembly

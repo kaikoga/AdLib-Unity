@@ -9,6 +9,22 @@ namespace AdLib.Reflection.Generator
     {
         protected readonly Type ActualType;
 
+        protected AssemblyKind GetAssemblyKind()
+        {
+            return ActualType.Assembly.GetName().Name switch
+            {
+                "Assembly-CSharp-Editor" => AssemblyKind.AssemblyCSharpEditor,
+                "Assembly-CSharp" => AssemblyKind.AssemblyCSharp,
+                var name => throw new NotSupportedException(name)
+            };
+        }
+
+        protected enum AssemblyKind
+        {
+            AssemblyCSharp,
+            AssemblyCSharpEditor,
+        }
+
         readonly string _accessNamespace;
         readonly string _accessClassName;
 
@@ -102,12 +118,11 @@ namespace AdLib.Reflection.Generator
 
         protected void GenerateCachedAndActualType(SourceCodeBuilder sb)
         {
-            var asmdefName = ActualType.Assembly.GetName().Name;
-            var getTypeMethod = asmdefName switch
+            var getTypeMethod = GetAssemblyKind() switch
             {
-                "Assembly-CSharp-Editor" => nameof(CachedAppDomain.GetEditorType),
-                "Assembly-CSharp" => nameof(CachedAppDomain.GetRuntimeType),
-                _ => throw new NotSupportedException(asmdefName)
+                AssemblyKind.AssemblyCSharp => nameof(CachedAppDomain.GetRuntimeType),
+                AssemblyKind.AssemblyCSharpEditor => nameof(CachedAppDomain.GetEditorType),
+                _ => throw new ArgumentOutOfRangeException()
             };
             sb.AppendLine($"static readonly CachedType CachedType = CachedAppDomain.Instance.{getTypeMethod}(\"{ActualType.FullName}\");");
             sb.AppendLine("public static Type ActualType => CachedType.ActualType;");
